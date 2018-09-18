@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><TITLE>Multicast</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+<link href="mirror_files/form.css" rel="stylesheet" type="text/css">
+<script language="JavaScript" type="text/javascript">
+
+function apply()
+{
+  var d = document.mult2;
+  
+  if(true == document.multicast.igmpsnoop_en.checked)  
+      d.igmp.value =  "1";
+  else{
+      d.igmp.value =  "0";  	
+  }
+
+  if(true == document.multicast.bkukwmt.checked)  
+      d.ukmult.value =  "1";
+  else{
+      d.ukmult.value =  "0";  	
+  }
+  d.igmp_vid.value = document.multicast.vid.value;
+  d.submit();
+}
+
+function igmp_check() {
+	var d = document.getElementsByName("vid");
+	var vlan_enable = [%=MULTICAST:SSI(#VLAN_ID_ENABLE)%];
+	if ((document.getElementById("igmpsnoop_en").checked)  && (vlan_enable != 0) ) {
+      document.getElementById("vid").disabled =false;
+  } else {
+  	  document.getElementById("vid").disabled=true;
+  }	
+}
+function display_help()
+{
+  window.open('multicast_help.htm','MyWindows','status=yes,left=50,top=50,scrollbars=yes,resizable=yes,width=600,height=400');
+}
+
+function init() 
+{
+	igmp_check();
+}
+</script></head>
+
+<body onload="igmp_check()">
+
+<form name=mult2 method=get action="multicast.cgi">
+<input type=hidden name=igmp>
+<input type=hidden name=ukmult>
+<input type=hidden name=igmp_vid>
+</form>
+
+<form name="multicast" action="multicast.htm">
+
+<table cellSpacing="0" border="0">
+<tr vAlign="top">
+<td width="92%"><h1>Multicast Setting</h1></td>
+<td align="right"><input type="button" value="Help" onclick="javascript:display_help();"></td>
+</tr>
+</table>
+
+<table> 
+<tbody>
+<tr><td>
+<input id=igmpsnoop_en name=igmpsnoop_en  onclick="igmp_check()" type="checkbox" [%=MULTICAST:SSI(#IGMPSPMD)%] >
+<b>IGMP Snooping Enable</b>&nbsp;&nbsp;&nbsp;&nbsp;    
+<td>&nbsp;<br></br></tr>
+<tr><td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VLAN ID for IGMP snooping [%=MULTICAST:SSI(#VLAN_RANGE)%]</b></td>
+<td><input type=text name=vid id=vid size=6 maxlength=4 value=[%=MULTICAST:SSI(#VLAN_ID_SELECT)%] disabled="false" > </TD>
+</tr>
+<tr><td>
+<b></b>
+<input name=bkukwmt type="checkbox" [%=MULTICAST:SSI(#UNKNOWMT)%]>
+<b>Block Unknown Multicast Address Enable</b>&nbsp;&nbsp;&nbsp;&nbsp;
+<td>&nbsp;<tr> 
+<td>&nbsp;<td>&nbsp;
+
+<tr>
+<td>&nbsp;</td></tr>
+<tr><td align="center"><input value=" Apply " type=button onclick="apply()"></td></tr>
+</tbody></table></form>
+</body></html>

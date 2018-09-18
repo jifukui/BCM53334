@@ -1,0 +1,363 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+        <title>UM 3.4.0 Release Notes</title>
+        
+  <style type="text/css"><!--
+BODY {
+	font-family: "verdana", "arial", "helvetica", "sans-serif";
+}
+  --></style>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<h2>UM 3.4.0 Release Notes</h2>
+<h3>Section Reference</h3>
+<table cellpadding=0 cellspacing=2 border=0 summary="reference" >
+<tr><td><a href="#section_about">Section 1: </a></td>
+<td>&nbsp;&nbsp;</td><td> About This Document
+</td>
+<tr><td><a href="#section_docs">Section 2: </a></td>
+<td>&nbsp;&nbsp;</td><td> Product Documentation
+</td>
+<tr><td><a href="#section_media">Section 3: </a></td>
+<td>&nbsp;&nbsp;</td><td> Release Media
+</td>
+<tr><td><a href="#section_support">Section 4: </a></td>
+<td>&nbsp;&nbsp;</td><td> Support
+</td>
+<tr><td><a href="#section_new">Section 5: </a></td>
+<td>&nbsp;&nbsp;</td><td> New in this Release
+</td>
+<tr><td>&nbsp;&nbsp;<a href="#new-hardware">Section 5.1: </a></td>
+<td>&nbsp;&nbsp;</td><td> New Devices and Systems
+</td>
+<tr><td>&nbsp;&nbsp;<a href="#new-feature">Section 5.2: </a></td>
+<td>&nbsp;&nbsp;</td><td> New Features
+</td>
+<tr><td><a href="#section_platforms">Section 6: </a></td>
+<td>&nbsp;&nbsp;</td><td> Device and Platform Support
+</td>
+<tr><td>&nbsp;&nbsp;<a href="#devices">Section 6.1: </a></td>
+<td>&nbsp;&nbsp;</td><td> SOC/Switch Devices
+</td>
+<tr><td>&nbsp;&nbsp;<a href="#refdesigns">Section 6.2: </a></td>
+<td>&nbsp;&nbsp;</td><td> Reference Designs
+</td>
+<tr><td><a href="#section_resolved3.4.0">Section 7: </a></td>
+<td>&nbsp;&nbsp;</td><td> Resolved Issues for 3.4.0
+</td>
+<tr><td><a href="#section_Appendix_A">Section 8: </a></td>
+<td>&nbsp;&nbsp;</td><td> UM Externally Licensed Software Components
+</td>
+<tr><td>&nbsp;&nbsp;<a href="#uIP_license_terms_and_conditions">Section 8.1: </a></td>
+<td>&nbsp;&nbsp;</td><td> uIP License terms and conditions
+</td>
+<tr><td>&nbsp;&nbsp;<a href="#Contiki_license_terms_and_conditions">Section 8.2: </a></td>
+<td>&nbsp;&nbsp;</td><td> Contiki License terms and conditions
+</td>
+</table>
+<hr noshade>
+<h2>Alphabetical list of all APIs</h2>
+<table cellpadding=0 cellspacing=2 border=0 summary="api" >
+</table>
+<br><br><hr noshade><br><br>
+    <a name=section_about>
+    <h3>Section 1:  About This Document
+</h3>
+<p>These are the Release Notes for the Broadcom Unmanaged
+Software Development Kit, Release 3.4.0.
+<p>This document provides a general description of the release
+, the chips and platforms supported by the release and
+resolved issues for release 3.4.0.
+<br><br><hr noshade><br><br>
+    <a name=section_docs>
+    <h3>Section 2:  Product Documentation
+</h3>
+<p>The following documents are available through Broadcom's
+Customer Support Portal, http://support.broadcom.com. They are
+the primary source of information and should be referenced 
+when using this release.
+<p><table cellpadding="4" cellspacing="0" border="1" summary="section"><tbody><tr><td><tr><td><b>  Document</b></td><td><b> Description
+</b></td></tr><tr><td>  Unmanaged-SWUM104-RDS</td><td> Unmanaged Software Getting Started Guide
+</td></tr><tr><td>  Unmanaged-PG104-RDS</td><td> Unmanaged Software Porting Guide
+</td></tr></tbody></table><br><br><hr noshade><br><br>
+    <a name=section_media>
+    <h3>Section 3:  Release Media
+</h3>
+<p>The Software Development Kit is released as a gzipped tar file
+on Broadcom's Customer Support Portal, http://support.broadcom.com.
+<br><br><hr noshade><br><br>
+    <a name=section_support>
+    <h3>Section 4:  Support
+</h3>
+<p>Questions, feedback, and/or suggestions should be sent to your Broadcom FAE.
+<br><br><hr noshade><br><br>
+    <a name=section_new>
+    <h3>Section 5:  New in this Release
+</h3>
+<p>The following section describes feature and device support that is introduced in this release. 
+<br><hr noshade><a name="new-hardware"></a>
+<h3>Section 5.1:   New Devices and Systems
+</h3>
+<h3>Table 2:   SOC/Switch Devices
+</h3>
+<table cellpadding="4" cellspacing="0" border="1" summary="section"><tbody><tr><td><tr><td><b>  Family</b></td><td><b>  Devices</b></td><td><b> Description
+</b></td></tr><tr><td> BCM53460
+</td><td> BCM53460 A0
+</td><td> 4-Port 1G and 8-Port 10G Ethernet Switch embeds ARM CPU
+</td></tr><tr><td> BCM53460
+</td><td> BCM53461 A0
+</td><td> 8-Port 1G and 4-Port 10G Ethernet Switch embeds ARM CPU
+</td></tr></tbody></table><p><br><hr noshade><a name="new-feature"></a>
+<h3>Section 5.2:   New Features
+</h3>
+<ul><li> Support the vendor-config update via Web interface.
+ </li><li> Add 54210(S) PHY driver support.
+ </li><li> Add UM-Dumb package in UM sfotware.
+</li></ul><p><br><br><hr noshade><br><br>
+    <a name=section_platforms>
+    <h3>Section 6:  Device and Platform Support
+</h3>
+<p>The section describes all devices and platforms
+which are supported by this release. 
+<br><hr noshade><a name="devices"></a>
+<h3>Section 6.1:   SOC/Switch Devices
+</h3>
+<p><h3>Table 3:   SOC/Switch Devices
+</h3>
+<table cellpadding="4" cellspacing="0" border="1" summary="section"><tbody><tr><td><tr><td><b>  Family</b></td><td><b>  Devices</b></td><td><b> Description
+</b></td></tr><tr><td> BCM53330
+</td><td> BCM53333 A0
+</td><td> BCM53333 Integrated Multilayer Switch and CPU
+</td></tr><tr><td></td><td> BCM53334 A0
+</td><td> BCM53334 Integrated Multilayer Switch and CPU
+</td></tr><tr><td> BCM53390
+</td><td> BCM53393 A0
+</td><td> BCM53393 Integrated Multilayer Switch and CPU
+</td></tr><tr><td></td><td> BCM53394 A0
+</td><td> BCM53394 Integrated Multilayer Switch and CPU
+</td></tr><tr><td> BCM53340
+</td><td> BCM53342 A0
+</td><td> BCM53342 Integrated Multilayer Switch and CPU
+</td></tr><tr><td></td><td> BCM53343 A0
+</td><td> BCM53343 Integrated Multilayer Switch and CPU
+</td></tr><tr><td></td><td> BCM53344 A0
+</td><td> BCM53344 Integrated Multilayer Switch and CPU
+</td></tr><tr><td></td><td> BCM53346 A0
+</td><td> BCM53346 Integrated Multilayer Switch and CPU
+</td></tr><tr><td> BCM53400
+</td><td> BCM53402 A0
+</td><td> BCM53402 Integrated Multilayer Switch and CPU
+</td></tr><tr><td></td><td> BCM53405 A0
+</td><td> BCM53405 Integrated Multilayer Switch and CPU
+</td></tr><tr><td></td><td> BCM53406 A0
+</td><td> BCM53406 Integrated Multilayer Switch and CPU
+</td></tr><tr><td> BCM53450
+</td><td> BCM53454 A0
+</td><td> BCM53454 Integrated Multilayer Switch and CPU
+</td></tr><tr><td></td><td> BCM53456 A0
+</td><td> BCM53456 Integrated Multilayer Switch and CPU
+</td></tr><tr><td> BCM53420
+</td><td> BCM53422 A0
+</td><td> BCM53422 Integrated Multilayer Switch and CPU
+</td></tr><tr><td></td><td> BCM53424 A0
+</td><td> BCM53424 Integrated Multilayer Switch and CPU
+</td></tr><tr><td></td><td> BCM53426 A0
+</td><td> BCM53426 Integrated Multilayer Switch and CPU
+</td></tr><tr><td> BCM53430
+</td><td> BCM53434 A0
+</td><td> BCM53434 Integrated Multilayer Switch and CPU
+</td></tr><tr><td> BCM53460
+</td><td> BCM53460 A0
+</td><td> BCM53460 Integrated Multilayer Switch and CPU
+</td></tr><tr><td></td><td> BCM53461 A0
+</td><td> BCM53461 Integrated Multilayer Switch and CPU
+</td></tr></tbody></table><p><br><hr noshade><a name="refdesigns"></a>
+<h3>Section 6.2:   Reference Designs
+</h3>
+<p>The following Switch Reference Designs are available from Broadcom
+and are supported in this software release.
+<p><h3>Table 4:   Reference Designs
+</h3>
+<table cellpadding="4" cellspacing="0" border="1" summary="section"><tbody><tr><td><tr><td><b>  Platform</b></td><td><b> Description
+</b></td></tr><tr><td> BCM953334K
+</td><td> 24-port GE 53334 Switch Ref Design
+</td></tr><tr><td> BCM953393K
+</td><td> 14-port GE 53393 Switch Ref Design
+</td></tr><tr><td> BCM953394K
+</td><td> 10-port GE + 4-port 10GE 53394 Switch Ref Design
+</td></tr><tr><td> BCM953406K
+</td><td> 12-port GE + 12-port 10GE 53406 Switch Ref Design
+</td></tr><tr><td> BCM953456K
+</td><td> 24-port GE + 4-port 10GE 53456 Switch Ref Design
+</td></tr><tr><td> BCM953434K
+</td><td> 24-port GE 53434 Switch Ref Design
+</td></tr><tr><td> BCM956270K
+</td><td> 4-port GE + 8-port 10GE 53460 Switch Ref Design
+</td></tr></tbody></table><p><br><br><hr noshade><br><br>
+    <a name=section_resolved3.4.0>
+    <h3>Section 7:  Resolved Issues for 3.4.0
+</h3>
+<p>The following issues are resolved in version 3.4.0 of the UM.
+<p><table cellpadding="4" cellspacing="0" border="1" summary="section"><tbody><tr><td><tr><td><b> Number
+ </b></td><td><b> Release Notes For 3.4.0
+</b></td></tr><tr><td> UM-313
+ </td><td> Add BCM53460/BCM53461 support.
+</td></tr><tr><td> UM-345
+ </td><td> Add BCM54210 driver support.
+</td></tr><tr><td> UM-376
+ </td><td> Support the vendor-config update via Web interface.
+</td></tr><tr><td> UM-387
+ </td><td> Let the serdes register can be access correctly by CLI.
+</td></tr><tr><td> UM-388
+ </td><td> Add code to provide proper setting for "XTAL clock source" and "PLL configuration" based on strap pin in BCM53400 family.
+</td></tr><tr><td> UM-389
+ </td><td> Power down the USB serdes in lite SKUs of BCM53400 family.
+</td></tr><tr><td> UM-390
+ </td><td> Correct the ability for 1G fiber port of BCM953394 platform.
+</td></tr><tr><td> UM-391
+ </td><td> Add code to support <tt>phy_an_logical_ports</tt>/<tt>phy_cl73_logical_ports</tt>/<tt>phy_cl37_logical_ports</tt> for BCM5334X SKUs.
+</td></tr><tr><td> UM-392
+ </td><td> Use <tt>VLAN_DEFAULT</tt> to control the default VID for 802.1Q VLAN.
+</td></tr><tr><td> UM-393
+ </td><td> Let loop detect packet can be switched between front panel ports.
+</td></tr><tr><td> UM-396
+ </td><td> Correct the mapping between uport and phyid to let write PHY register successfully on BCM5333X SKUs.
+</td></tr><tr><td> UM-401
+ </td><td> Add UM-Dumb package in UM software.
+</td></tr><tr><td> UM-403
+ </td><td> Add BCM54210S driver support.
+</td></tr><tr><td> UM-404
+ </td><td> Use Broadcom LTD logo in web page.
+</td></tr></tbody></table><br><br><hr noshade><br><br>
+    <a name=section_Appendix_A>
+    <h3>Section 8:  UM Externally Licensed Software Components
+</h3>
+<p>UM contains a number of third-party externally licensed software components.
+This appendix contains information regarding these components, the license for each of these components, and where these components are used in UM.
+<h3>Table 6:   EXTERNALLY LICENSED SOFTWARE COMPONENTS
+</h3>
+<table cellpadding="4" cellspacing="0" border="1" summary="section"><tbody><tr><td><tr><td><b> Component
+ </b></td><td><b> Origin
+ </b></td><td><b> Location in source tree
+ </b></td><td><b> License terms and conditions
+</b></td></tr><tr><td> The uIP TCP/IP stack
+ </td><td> http://www.sics.se/~adam/old-uip/
+ </td><td> src/net/, src/appl/dhcpc/ and include/appl/
+ </td><td>  See  <a href="#uIP_license_terms_and_conditions">Section 8.1:  uIP License terms and conditions
+</a> </td></tr><tr><td> The Contiki OS
+ </td><td> http://www.contiki-os.org/
+ </td><td> src/net/
+ </td><td>  See  <a href="#Contiki_license_terms_and_conditions">Section 8.2:  Contiki License terms and conditions
+</a> </td></tr></tbody></table><br><hr noshade><a name="uIP_license_terms_and_conditions"></a>
+<h3>Section 8.1:   uIP License terms and conditions
+</h3>
+<blockquote><pre>uIP is developed by Adam Dunkels of the Networked Embedded Systems group at the
+Swedish Institute of Computer Science. The uIP 1.0 distribution package
+uip-1.0.tar.gz used in UM was obtained from the following location:
+    http://www.sics.se/~adam/old-uip/download.html
+Part of the uIP packege was modified and used for purposes of inclusion into 
+the UM source tree architecture for IPv4 protocol stack.
+
+Used (and modified) files:
+    include/appl/dhcp.h
+    src/appl/dhcpc/dhcpc.c
+    src/net/lc.h
+    src/net/lc-switch.h
+    src/net/pt.h
+    src/net/uip.[hc]
+    src/net/<tt>uip_arch</tt>.[hc]
+    src/net/<tt>uip_arp</tt>.[hc]
+    src/net/uipopt.h
+
+Changed functionality:
+    Added option <tt>UIP_CONF_ICMP</tt> to enable/disable ICMP
+    Avoid dropping packets for specific IP address
+    Extracted checksum algorithm to a standalone SAL function
+    Changed max retry number and timeout interval for DHCP client application
+    Added dual stack (IPv4 + IPv6) support
+
+------------------------------------------------------------------------------
+
+Copyright (c) 2005, Swedish Institute of Computer Science
+All rights reserved.
+ 
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+1. Redistributions of source code must retain the above copyright
+   notice, this list of conditions and the following disclaimer.
+2. Redistributions in binary form must reproduce the above copyright
+   notice, this list of conditions and the following disclaimer in the
+   documentation and/or other materials provided with the distribution.
+3. Neither the name of the Institute nor the names of its contributors
+   may be used to endorse or promote products derived from this software
+   without specific prior written permission.
+ 
+THIS SOFTWARE IS PROVIDED BY THE INSTITUTE AND CONTRIBUTORS ``AS IS'' AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED.  IN NO EVENT SHALL THE INSTITUTE OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+SUCH DAMAGE.
+ 
+ 
+</pre></blockquote><p><br><hr noshade><a name="Contiki_license_terms_and_conditions"></a>
+<h3>Section 8.2:   Contiki License terms and conditions
+</h3>
+<blockquote><pre>Contiki is developed by a group of developers from industry and academia lead 
+by Adam Dunkels. The Contiki 2.5 distribution package contiki-2.5.zip used in 
+UM was obtained from the following location:
+    http://www.contiki-os.org/p/download.html
+Part of the Contiki package was modified and used for purposes of inclusion 
+into the UM source tree architecture for IPv6 protocol stack.
+
+Used (and modified) files:
+    src/net/<tt>uip_timers</tt>.h
+    src/net/uip6.[hc]
+    src/net/uip-debug.h
+    src/net/uip-ds6.[hc]
+    src/net/uip-icmp6.[hc]
+    src/net/uip-nd6.[hc]
+
+Changed functionality:
+    Added dual stack (IPv4 + IPv6) support
+    Revised debugging macro for using with C51 compiler
+
+------------------------------------------------------------------------------
+
+Copyright (c) 2006, Swedish Institute of Computer Science.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+1. Redistributions of source code must retain the above copyright
+  notice, this list of conditions and the following disclaimer.
+2. Redistributions in binary form must reproduce the above copyright
+  notice, this list of conditions and the following disclaimer in the
+  documentation and/or other materials provided with the distribution.
+3. Neither the name of the Institute nor the names of its contributors
+  may be used to endorse or promote products derived from this software
+  without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE INSTITUTE AND CONTRIBUTORS ``AS IS'' AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED.  IN NO EVENT SHALL THE INSTITUTE OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+SUCH DAMAGE.
+ 
+</pre></blockquote><p></html></body>

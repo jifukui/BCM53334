@@ -1,0 +1,142 @@
+#
+# $Id: config.um,v 1.13 Broadcom SDK $
+# 
+# $Copyright: Copyright 2016 Broadcom Corporation.
+# This program is the proprietary software of Broadcom Corporation
+# and/or its licensors, and may only be used, duplicated, modified
+# or distributed pursuant to the terms and conditions of a separate,
+# written license agreement executed between you and Broadcom
+# (an "Authorized License").  Except as set forth in an Authorized
+# License, Broadcom grants no license (express or implied), right
+# to use, or waiver of any kind with respect to the Software, and
+# Broadcom expressly reserves all rights in and to the Software
+# and all intellectual property rights therein.  IF YOU HAVE
+# NO AUTHORIZED LICENSE, THEN YOU HAVE NO RIGHT TO USE THIS SOFTWARE
+# IN ANY WAY, AND SHOULD IMMEDIATELY NOTIFY BROADCOM AND DISCONTINUE
+# ALL USE OF THE SOFTWARE.  
+#  
+# Except as expressly set forth in the Authorized License,
+#  
+# 1.     This program, including its structure, sequence and organization,
+# constitutes the valuable trade secrets of Broadcom, and you shall use
+# all reasonable efforts to protect the confidentiality thereof,
+# and to use this information only in connection with your use of
+# Broadcom integrated circuit products.
+#  
+# 2.     TO THE MAXIMUM EXTENT PERMITTED BY LAW, THE SOFTWARE IS
+# PROVIDED "AS IS" AND WITH ALL FAULTS AND BROADCOM MAKES NO PROMISES,
+# REPRESENTATIONS OR WARRANTIES, EITHER EXPRESS, IMPLIED, STATUTORY,
+# OR OTHERWISE, WITH RESPECT TO THE SOFTWARE.  BROADCOM SPECIFICALLY
+# DISCLAIMS ANY AND ALL IMPLIED WARRANTIES OF TITLE, MERCHANTABILITY,
+# NONINFRINGEMENT, FITNESS FOR A PARTICULAR PURPOSE, LACK OF VIRUSES,
+# ACCURACY OR COMPLETENESS, QUIET ENJOYMENT, QUIET POSSESSION OR
+# CORRESPONDENCE TO DESCRIPTION. YOU ASSUME THE ENTIRE RISK ARISING
+# OUT OF USE OR PERFORMANCE OF THE SOFTWARE.
+# 
+# 3.     TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT SHALL
+# BROADCOM OR ITS LICENSORS BE LIABLE FOR (i) CONSEQUENTIAL,
+# INCIDENTAL, SPECIAL, INDIRECT, OR EXEMPLARY DAMAGES WHATSOEVER
+# ARISING OUT OF OR IN ANY WAY RELATING TO YOUR USE OF OR INABILITY
+# TO USE THE SOFTWARE EVEN IF BROADCOM HAS BEEN ADVISED OF THE
+# POSSIBILITY OF SUCH DAMAGES; OR (ii) ANY AMOUNT IN EXCESS OF
+# THE AMOUNT ACTUALLY PAID FOR THE SOFTWARE ITSELF OR USD 1.00,
+# WHICHEVER IS GREATER. THESE LIMITATIONS SHALL APPLY NOTWITHSTANDING
+# ANY FAILURE OF ESSENTIAL PURPOSE OF ANY LIMITED REMEDY.$
+#
+# Vendor Configuration
+#
+# Each entry in the file consists of a single line of the form:
+#	 <Parameter>=<Value>
+# UM software provides a tool (um_config_insert.pl) to insert the Vendor 
+# configuration(config.um) into the precompiled firmware image (*.image).
+# Then the firmware image may do different setting in the intialization 
+# based on the configuration.
+#
+# Usage to insert Vendor Configuration into the precompiled firmware
+#      um_config_insert.pl -image  <image_file> [options]
+#          -image, -i: specify the image file where the config will be inserted
+#          -config, -c: optionally specify config file name, 
+#                           default name is "config.um"
+#          -force: force to overwrite previous configuration in the image file
+#          -verbose: show more debug log
+#          -generate, -g: only generate the config binary file for web update
+#          -h: show usage
+#
+
+#     Board Name : Board name checking will be enabled if board_name is set.
+#                  For board name checking, it would check whether it is equal
+#                  to the value of CFG_BOARDNAME defined in 
+#                  system/bcmxxxxx/Makefile.
+#board_name=BCM95340X
+
+#     SKU Option : Option of SKU, value is from 1 ~ X.
+#                  Please get sku option from Programmer's Register Reference 
+#                  Guide.
+#sku_option=2
+
+#     Serial LED
+#         - led_option : Option of serial LED micro code, value is from 1 ~ 3.
+#             1: Left LED : Link              Right LED : TX/RX activity
+#             2: Left LED : TX/RX activity    Right LED : Link
+#             3: Customer LED uCode
+#         - led_program : Customer LED uCode
+#led_option=3
+#led_program=led.hex
+
+#     Parallel LED Setting
+#         - Overide the setting of register LED_CONTROL and LED_SELECTOR
+#           for external PHY.
+#phy_led1_mode=0xF
+#phy_led2_mode=0xF
+#phy_led3_mode=0xF
+#phy_led4_mode=0xF
+#phy_led_ctrl=0x8
+#phy_led_select=0x0
+
+#     Reset Button
+#         - reset_button_enable :  0 (disable) / 1 (enable reset button feature)
+#         - reset_button_gpio_bit : Set GPIO bit for reset button, value is 
+#                                   from 0 ~ 7.
+#         - reset_button_polarity : 0 (active low) / 1 (active high)
+#reset_button_enable=1
+#reset_button_gpio_bit=4
+#reset_button_polarity=1
+
+#     Per Port Configuration : Value is a set of logical port number, 
+#                              for example 2-5,10-13.
+#valid_logical_ports=2-25
+#speed_1000_logical_ports=2-25
+#speed_2500_logical_ports=2-25
+#speed_5000_logical_ports=2-25
+#speed_10000_logical_ports=2-25
+#phy_an_logical_ports=2-25
+#phy_cl73_logical_ports=2-25
+#phy_cl37_logical_ports=2-25
+
+#     QTC interface
+#         - qtc_interface : Different modes for qtc interface, value is from 1 ~ 3.
+#             1: QSGMII mode
+#             2: SGMII mode
+#             3: Fiber mode
+#qtc_interface=1
+
+#     TSCE interface
+#         - tsce_interface : Different modes for tsce interface, value is 1 or 2.
+#             1: SGMII mode
+#             2: Fiber mode
+#tsce_interface=1
+
+#     VIPER interface
+#         - viper_interface : Different modes for viper interface, value is 1 or 2.
+#             1: SGMII mode
+#             2: Fiber mode
+#viper_interface=1
+
+#     Config "static IP address" or dhcp
+#         - ifconfig=IP_ADDR/NETMASK/GATEWAY or ifconfig=dhcp
+#           
+#           For example1 ,ifconfig=192.168.0.239/255.255.255.0/192.168.0.254
+#           For example2 ,ifconfig=dhcp, it is same as if ifconfig is not configured
+#           
+#ifconfig=192.168.0.239/255.255.255.0/192.168.0.254
+

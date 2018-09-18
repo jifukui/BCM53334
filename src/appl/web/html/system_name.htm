@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html">
+<link HREF="form.css" REL="stylesheet" TYPE="text/css">
+<script language="javascript">
+
+function formSubmit()
+{
+  disableHtml();
+  document.forms[0].submit();
+  return true;
+}
+
+function disableHtml()
+{
+  document.getElementById("btApply").disabled=true;
+}
+
+function check_charkey(obj, event, len){
+  var key;
+  if (obj.value.length > len)    return false;
+  event = (event) ? event : window.event;
+  key = (event.keyCode) ? event.keyCode : event.which;
+  
+  if (key>=32 && key<=126) {
+    if (key != 34){
+      return true;
+    }
+  }
+  return false;
+}
+
+</script>
+</HEAD>
+<body onLoad="" leftmargin="20" topmargin="20">
+<form name="sysname" action="system_name_set.cgi" method="post">
+<table cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="headerCell"><B>System Name:</B></td>
+    <td class="dataCell"><INPUT  type=text name="sysName" size="25" maxlength="<%=system_name:info(#max_length)%>" onKeypress="return check_charkey(this,event, <%=system_name:info(#max_length)%>);"  value="<%=system_name:info(#name)%>"></td>
+  </tr>
+</table>
+</form>
+<HR>
+<TABLE width=450><TBODY>
+<TR><TD align=Left>
+  <INPUT type=button id="btApply" name="btApply" value="Apply" onclick="formSubmit()">
+  <INPUT type=button value="Cancel" onclick="history.go(-1)">
+</TBODY></TABLE>
+</body>
+</html>

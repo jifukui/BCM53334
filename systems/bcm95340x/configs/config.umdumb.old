@@ -1,0 +1,26 @@
+ 
+#
+#  System Definition   
+#
+
+target = umdumb
+
+CFG_TEXT_START ?= 0xF0000000 
+
+FLASH_IMG = 
+
+
+#
+#  System feature
+#
+CFG_XIP = 1
+
+
+#
+#  WEB feature 
+#
+
+
+CFG_WEB = 0
+
+

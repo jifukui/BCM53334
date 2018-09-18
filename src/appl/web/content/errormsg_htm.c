@@ -1,0 +1,127 @@
+/*
+ * $Id: errormsg_htm.c,v 1.6 Broadcom SDK $
+ *
+ * $Copyright: Copyright 2016 Broadcom Corporation.
+ * This program is the proprietary software of Broadcom Corporation
+ * and/or its licensors, and may only be used, duplicated, modified
+ * or distributed pursuant to the terms and conditions of a separate,
+ * written license agreement executed between you and Broadcom
+ * (an "Authorized License").  Except as set forth in an Authorized
+ * License, Broadcom grants no license (express or implied), right
+ * to use, or waiver of any kind with respect to the Software, and
+ * Broadcom expressly reserves all rights in and to the Software
+ * and all intellectual property rights therein.  IF YOU HAVE
+ * NO AUTHORIZED LICENSE, THEN YOU HAVE NO RIGHT TO USE THIS SOFTWARE
+ * IN ANY WAY, AND SHOULD IMMEDIATELY NOTIFY BROADCOM AND DISCONTINUE
+ * ALL USE OF THE SOFTWARE.  
+ *  
+ * Except as expressly set forth in the Authorized License,
+ *  
+ * 1.     This program, including its structure, sequence and organization,
+ * constitutes the valuable trade secrets of Broadcom, and you shall use
+ * all reasonable efforts to protect the confidentiality thereof,
+ * and to use this information only in connection with your use of
+ * Broadcom integrated circuit products.
+ *  
+ * 2.     TO THE MAXIMUM EXTENT PERMITTED BY LAW, THE SOFTWARE IS
+ * PROVIDED "AS IS" AND WITH ALL FAULTS AND BROADCOM MAKES NO PROMISES,
+ * REPRESENTATIONS OR WARRANTIES, EITHER EXPRESS, IMPLIED, STATUTORY,
+ * OR OTHERWISE, WITH RESPECT TO THE SOFTWARE.  BROADCOM SPECIFICALLY
+ * DISCLAIMS ANY AND ALL IMPLIED WARRANTIES OF TITLE, MERCHANTABILITY,
+ * NONINFRINGEMENT, FITNESS FOR A PARTICULAR PURPOSE, LACK OF VIRUSES,
+ * ACCURACY OR COMPLETENESS, QUIET ENJOYMENT, QUIET POSSESSION OR
+ * CORRESPONDENCE TO DESCRIPTION. YOU ASSUME THE ENTIRE RISK ARISING
+ * OUT OF USE OR PERFORMANCE OF THE SOFTWARE.
+ * 
+ * 3.     TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT SHALL
+ * BROADCOM OR ITS LICENSORS BE LIABLE FOR (i) CONSEQUENTIAL,
+ * INCIDENTAL, SPECIAL, INDIRECT, OR EXEMPLARY DAMAGES WHATSOEVER
+ * ARISING OUT OF OR IN ANY WAY RELATING TO YOUR USE OF OR INABILITY
+ * TO USE THE SOFTWARE EVEN IF BROADCOM HAS BEEN ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGES; OR (ii) ANY AMOUNT IN EXCESS OF
+ * THE AMOUNT ACTUALLY PAID FOR THE SOFTWARE ITSELF OR USD 1.00,
+ * WHICHEVER IS GREATER. THESE LIMITATIONS SHALL APPLY NOTWITHSTANDING
+ * ANY FAILURE OF ESSENTIAL PURPOSE OF ANY LIMITED REMEDY.$
+ *
+ */
+
+/***** GENERATED FILE; DO NOT EDIT. *****/
+
+#include "appl/ssp.h"
+
+static RES_CONST_DECL unsigned char CODE _text0000[] = {
+    0x3c, 0x21, 0x44, 0x4f, 0x43, 0x54, 0x59, 0x50,      /* <!DOCTYP */
+    0x45, 0x20, 0x48, 0x54, 0x4d, 0x4c, 0x20, 0x50,      /* E HTML P */
+    0x55, 0x42, 0x4c, 0x49, 0x43, 0x20, 0x22, 0x2d,      /* UBLIC "- */
+    0x2f, 0x2f, 0x57, 0x33, 0x43, 0x2f, 0x2f, 0x44,      /* //W3C//D */
+    0x54, 0x44, 0x20, 0x48, 0x54, 0x4d, 0x4c, 0x20,      /* TD HTML  */
+    0x34, 0x2e, 0x30, 0x20, 0x54, 0x72, 0x61, 0x6e,      /* 4.0 Tran */
+    0x73, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x61, 0x6c,      /* sitional */
+    0x2f, 0x2f, 0x45, 0x4e, 0x22, 0x3e, 0x0d, 0x0a,      /* //EN">.. */
+    0x3c, 0x48, 0x54, 0x4d, 0x4c, 0x3e, 0x3c, 0x48,      /* <HTML><H */
+    0x45, 0x41, 0x44, 0x3e, 0x3c, 0x54, 0x49, 0x54,      /* EAD><TIT */
+    0x4c, 0x45, 0x3e, 0x3c, 0x2f, 0x54, 0x49, 0x54,      /* LE></TIT */
+    0x4c, 0x45, 0x3e, 0x0d, 0x0a, 0x3c, 0x4d, 0x45,      /* LE>..<ME */
+    0x54, 0x41, 0x20, 0x68, 0x74, 0x74, 0x70, 0x2d,      /* TA http- */
+    0x65, 0x71, 0x75, 0x69, 0x76, 0x3d, 0x22, 0x43,      /* equiv="C */
+    0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x2d, 0x54,      /* ontent-T */
+    0x79, 0x70, 0x65, 0x22, 0x20, 0x63, 0x6f, 0x6e,      /* ype" con */
+    0x74, 0x65, 0x6e, 0x74, 0x3d, 0x22, 0x74, 0x65,      /* tent="te */
+    0x78, 0x74, 0x2f, 0x68, 0x74, 0x6d, 0x6c, 0x3b,      /* xt/html; */
+    0x20, 0x63, 0x68, 0x61, 0x72, 0x73, 0x65, 0x74,      /*  charset */
+    0x3d, 0x55, 0x54, 0x46, 0x2d, 0x38, 0x22, 0x3e,      /* =UTF-8"> */
+    0x20, 0x0d, 0x0a, 0x3c, 0x4c, 0x49, 0x4e, 0x4b,      /*  ..<LINK */
+    0x20, 0x68, 0x72, 0x65, 0x66, 0x3d, 0x22, 0x66,      /*  href="f */
+    0x6f, 0x72, 0x6d, 0x2e, 0x63, 0x73, 0x73, 0x22,      /* orm.css" */
+    0x20, 0x72, 0x65, 0x6c, 0x3d, 0x73, 0x74, 0x79,      /*  rel=sty */
+    0x6c, 0x65, 0x73, 0x68, 0x65, 0x65, 0x74, 0x3e,      /* lesheet> */
+    0x0d, 0x0a, 0x3c, 0x2f, 0x48, 0x45, 0x41, 0x44,      /* ..</HEAD */
+    0x3e, 0x0d, 0x0a, 0x3c, 0x42, 0x4f, 0x44, 0x59,      /* >..<BODY */
+    0x3e, 0x0d, 0x0a, 0x3c, 0x48, 0x31, 0x3e,            /* >..<H1>  */
+};
+
+static RES_CONST_DECL unsigned char CODE _text0001[] = {
+    0x3c, 0x2f, 0x48, 0x31, 0x3e, 0x0d, 0x0a, 0x3c,      /* </H1>..< */
+    0x46, 0x4f, 0x4e, 0x54, 0x20, 0x73, 0x69, 0x7a,      /* FONT siz */
+    0x65, 0x3d, 0x33, 0x3e, 0x3c, 0x42, 0x3e, 0x45,      /* e=3><B>E */
+    0x52, 0x52, 0x4f, 0x52, 0x3c, 0x2f, 0x42, 0x3e,      /* RROR</B> */
+    0x3c, 0x2f, 0x46, 0x4f, 0x4e, 0x54, 0x3e, 0x3c,      /* </FONT>< */
+    0x42, 0x52, 0x3e, 0x3c, 0x42, 0x52, 0x3e, 0x3c,      /* BR><BR>< */
+    0x42, 0x3e,                                          /* B>       */
+};
+
+static RES_CONST_DECL unsigned char CODE _text0002[] = {
+    0x3c, 0x2f, 0x42, 0x3e, 0x3c, 0x42, 0x52, 0x3e,      /* </B><BR> */
+    0x0d, 0x0a, 0x3c, 0x49, 0x4e, 0x50, 0x55, 0x54,      /* ..<INPUT */
+    0x20, 0x74, 0x79, 0x70, 0x65, 0x3d, 0x62, 0x75,      /*  type=bu */
+    0x74, 0x74, 0x6f, 0x6e, 0x20, 0x76, 0x61, 0x6c,      /* tton val */
+    0x75, 0x65, 0x3d, 0x22,                              /* ue="     */
+};
+
+static RES_CONST_DECL unsigned char CODE _text0003[] = {
+    0x22, 0x20, 0x6f, 0x6e, 0x63, 0x6c, 0x69, 0x63,      /* " onclic */
+    0x6b, 0x3d, 0x22,                                    /* k="      */
+};
+
+static RES_CONST_DECL unsigned char CODE _text0004[] = {
+    0x22, 0x3e, 0x0d, 0x0a, 0x3c, 0x2f, 0x42, 0x4f,      /* ">..</BO */
+    0x44, 0x59, 0x3e, 0x3c, 0x2f, 0x48, 0x54, 0x4d,      /* DY></HTM */
+    0x4c, 0x3e, 0x0d, 0x0a,                              /* L>..     */
+};
+
+void sspvar_error_tag_title(SSPTAG_PARAM *params, SSPVAR_RET *ret, SSP_PSMH psmem) REENTRANT;
+void sspvar_error_tag_message(SSPTAG_PARAM *params, SSPVAR_RET *ret, SSP_PSMH psmem) REENTRANT;
+void sspvar_error_tag_button(SSPTAG_PARAM *params, SSPVAR_RET *ret, SSP_PSMH psmem) REENTRANT;
+void sspvar_error_tag_action(SSPTAG_PARAM *params, SSPVAR_RET *ret, SSP_PSMH psmem) REENTRANT;
+
+RES_CONST_DECL SSP_DATA_ENTRY CODE sspfile_errormsg_htm[] = {
+    { 0x00, 0, 223, 0, 0, _text0000 },
+    { 0x02, 0, 0, 0, 0, sspvar_error_tag_title },
+    { 0x00, 0, 50, 0, 0, _text0001 },
+    { 0x02, 0, 0, 0, 0, sspvar_error_tag_message },
+    { 0x00, 0, 36, 0, 0, _text0002 },
+    { 0x02, 0, 0, 0, 0, sspvar_error_tag_button },
+    { 0x00, 0, 11, 0, 0, _text0003 },
+    { 0x02, 0, 0, 0, 0, sspvar_error_tag_action },
+    { 0x80, 0, 20, 0, 0, _text0004 },
+};

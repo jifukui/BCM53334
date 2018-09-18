@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+<link HREF="form.css" REL="stylesheet" TYPE="text/css">
+<script language="JavaScript" type="text/javascript">
+var phase = 0;
+function start_upload()
+{
+  if (document.upg.firmware.value == ''){
+    window.alert("Please select configuration file !");
+    return;
+  }
+
+  if (phase == 0) {
+    document.getElementById("message").innerHTML = 
+      "VENDOR CONFIGURATION UPLOAD MUST NOT BE INTERRUPTED!";
+    phase = 1;
+  }
+  document.gui.btn.disabled = true;
+  document.no_fupg.btn.disabled = true;
+  document.upg.submit();
+  document.upg.firmware.disabled = true;
+}
+function upload_abort()
+{
+  window.location.assign("system.htm");
+}
+</script>
+<title></title>
+</head>
+<body>
+<CENTER>
+<h1>VENDOR CONFIGURATION UPLOAD</h1>
+<BR>
+<FORM name="upg" method="post" action="upload_vc.cgi" encType="multipart/form-data">
+<B>File to upgrade:&nbsp;&nbsp;</B><INPUT type=file name=firmware size=45>
+</FORM>
+<CENTER>
+<TABLE><TBODY><TR>
+<TD><FORM name=gui method="post" action="upload_vc.cgi"> <INPUT type=button onclick="javascript:start_upload();" value="Upload" name=btn> </FORM> 
+<TD><FORM name=no_fupg method="post" action="upload_vc.cgi"> 
+  <INPUT type=button onclick="javascript:upload_abort();" value=" Abort " name=btn> 
+</FORM>
+</TR></TBODY></TABLE>
+</CENTER>
+<BR>
+<div id=div0>
+	<BR><BR><BR><B><font size=3 color=red> <a id="message"> </a></font></B>
+</div>
+</CENTER>
+</body>
+</html>

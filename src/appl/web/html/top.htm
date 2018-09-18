@@ -1,0 +1,18 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" >
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+        <title></title>
+        <script language="JavaScript" type="text/JavaScript">
+        function on_load() {
+       	   var width = [%=PORTS:NUM(0,#TOTAL_COUNT)%] * 22 + 32;
+           document.getElementById("top_main").cols = "*, 0, " + width;            
+        }
+        </script>
+    </head>
+    <frameset id="top_main" cols="*, 0, [%=PORTS:NUM(0,#TOTAL_COUNT)%]" onload="on_load();">
+        <frame name="top_left" src="top_left.htm" noresize="noresize"  frameborder="0" scrolling="no">
+        <frame name="top_mid" src="top_mid.htm" noresize="noresize"  frameborder="0" scrolling="no">
+        <frame name="top_right" src="top_right.htm" noresize="noresize"  frameborder="0" scrolling="no">
+    </frameset>
+</html>

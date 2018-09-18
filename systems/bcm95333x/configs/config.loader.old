@@ -1,0 +1,16 @@
+target = loader
+
+ 
+#
+#  Firmware type  
+#
+
+CFG_TEXT_START ?= 0x1C000000
+
+#
+#  WEB feature 
+#
+
+CFG_WEB = 1
+
+

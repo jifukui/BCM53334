@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML><HEAD>
+<TITLE>VLAN List</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+<LINK href="form.css" rel=stylesheet>
+<SCRIPT language=JavaScript  type="text/javascript">
+
+var cur_page = <%=VLAN:LIST(#CURPAGE)%>;
+function change_page(mode)
+{
+    document.ports.curpage.value = cur_page;
+    document.ports.pagemode.value = mode;
+    document.ports.submit();
+}
+function change_vlan()
+{
+    document.vlan2.id.value = document.vlan.vid.value;
+    document.vlan2.submit();
+}
+function display_help()
+{
+  window.open('vlanlist_help.htm','MyWindows','status=yes,left=50,top=50,scrollbars=yes,resizable=yes,width=600,height=400');
+}
+
+function warning2()
+{
+   if (confirm('Do you want to change to Port-Based VLAN ?\n\n\nWarning : Changing to Port-Based VLAN will erase IEEE 802.1Q VLAN setting.\n\n\n') == true)
+   {
+     document.vmode.submit();
+   } else {
+     document.vmode.vtype[0].checked = true;
+   }
+}
+
+function check_vlan_add()
+{
+  var max_vlan = "[%=VLAN:LIST(#MAX_NUM)%]"
+  var allowed = [%=VLAN:LIST(#ALLOW_CREATE)%]
+  if (allowed == 0) {
+      alert ('Number of VLAN exceeds ' + max_vlan);
+      return;
+  }
+  document.location="vlannew.htm"
+}
+
+</SCRIPT>
+</HEAD>
+<BODY>
+
+<!-- Top page -->
+<FORM name="vmode" method="get" action="switchpage.cgi">
+<TABLE width="450">
+ <TR><TD><INPUT type="radio" name="vtype" value="0" checked>
+ <FONT size=3 color="#FF6600"><B>IEEE 802.1Q VLAN</B></FONT></TD>
+ <%x@FEATURE:ENABLE(#pvlan)%>
+ <TD><INPUT type="radio" name="vtype" value="1"  onclick="warning2();">
+ <FONT size=3 color="#FF6600"><B>Port-Based VLAN</B></FONT></TD></TR>
+ <%/x%>
+</TABLE>
+</FORM>
+
+<FORM name=vlan method=post action="vlanlist.htm">
+<TABLE width="60%">
+  <TBODY>
+  <TR align=center>
+    <TD align="left" width="7%"><B>VLAN ID : </B></TD>
+    <TD align="left" width="2%"><SELECT name=vid onchange="change_vlan()"> 
+      <OPTION value=0>&nbsp;
+      <%x@VLAN:VID_COUNTS%>
+      <OPTION value=[%=VLAN:SSI(#ORDER,x)%]>[%=VLAN:SSI(#VID, x)%]
+      <%/x%>
+      </OPTION></SELECT></TD>
+      <TD align="left" width="2%">&nbsp;&nbsp;<INPUT type=button value="Create New VLAN" onclick="check_vlan_add()"></TD>
+      <TD align="right"width="35%"><INPUT TYPE="BUTTON" VALUE="Help" onclick="display_help();"></TD>      
+  </TR>
+</TBODY></TABLE>
+</FORM>
+
+<FORM name=vlan2 method=get action="showvlan.cgi">
+<INPUT type=hidden name=id>
+</FORM>
+
+<FORM name=ports method=post action="pagevlan.cgi">
+ <INPUT type=hidden name=curpage>
+ <INPUT type=hidden name=pagemode>
+ 
+  <TABLE>
+   <TR><TD><B>&nbsp;Maximum number of IEEE 802.1Q VLAN : </B></TD>
+   <TD><B>&nbsp;&nbsp;<%=VLAN:LIST(#MAX_NUM)%></B></TD></TR>
+ </TABLE>
+ <TABLE width="60%" cellSpacing=0 cellPadding=2 border=1>
+   <TBODY>
+     <TR><TD width="10%" align=center><B>VLAN ID</B>
+         <TD>
+           <TABLE cellSpacing=0 cellPadding=2><TBODY align=center>
+            <TR>
+             <TD><B>&nbsp;Member ports</B></TD> <TD>&nbsp;</TD><TD>&nbsp;</TD>
+             <TD width=15 BGCOLOR="#FFCC33">&nbsp;</TD>
+             <TD>Tag egress packet</TD><TD>&nbsp;</TD>
+             <TD width=15 BGCOLOR="#33FFCC">&nbsp;</TD>
+             <TD>Untag egress packet</TD>
+            </TBODY></TABLE>     
+       
+     <%x@VLAN:PAGEVID_COUNTS%>
+     <TR><TD width="15%" align=center>
+         <B><A href="showvlan.cgi?port=[%=VLAN:LIST(#PAGEVID, x)%]">
+                     [%=VLAN:LIST(#PAGEVID, x)%]
+          </A></B>
+         <TD>
+         <TABLE cellSpacing=0 cellPadding=2 border=[%=VLAN:LIST(#GET_BODR, x)%]><TBODY align=left>
+         <TR>         
+         <%y@ports:ports()%>
+         <%=VLAN:LIST(#GET_MEMBER, x, y)%>
+         <%/y%>
+         </TBODY></TABLE> 
+         </TD></TR>
+     <%/x%>  
+ </TBODY></TABLE>
+
+ <TABLE><TBODY>
+ <TR><TD align=left><B>Click on VLAN ID to change member state or remove vlan.</B>
+ </TBODY></TABLE>
+ 
+ <BR>
+ <TABLE><TBODY><TR>
+ <TD><input type=button value="Previous Page" onclick="change_page(0)" [%=VLAN:LIST(#PPAGE_ENABLE)%]><TD>&nbsp;&nbsp;
+ <TD><input type=button value="Next Page" onclick="change_page(1)" [%=VLAN:LIST(#NPAGE_ENABLE)%]>
+
+ </TR></TBODY></TABLE>
+ </FORM>
+
+</BODY></HTML>
+

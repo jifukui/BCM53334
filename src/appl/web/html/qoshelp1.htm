@@ -1,0 +1,19 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML><HEAD>
+<TITLE> </TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<LINK href="form.css" rel=stylesheet type="text/css">
+
+</HEAD>
+<BODY>
+<font size=4><B>Getting started with QoS setting</B></font><BR><BR>
+QoS operation sets the priority relationships between four queuese. Current just support default 802.1P setting value<BR><BR>
+<B>Scheduling Method</B> specifies one scheduling methods (Weighted Round Robin) for the queues.<BR><BR>
+<B>Queue [0:3]</B> specifies four queues. Queue 0 is the lowest priority queue, queue 3 is the highest priority queue. Packets in
+queue 3 are served more often than packets in queue 0.<BR><BR>
+<B>Priority</B> indicates packet priority. This value is retrieved from the priority tag field, with values from 0 to 7. 0 indicates the
+lowest priority, 7 indicates the highest priority.<BR><BR>
+<B>Weight</B> indicates the weight (number of packets) to be served in the queue before moving to serve next queue. A high priority
+queue should have a higher weight than a low-priority queue.<BR><BR>
+</BODY></HTML>
+

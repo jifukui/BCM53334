@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML><HEAD>
+<META http-equiv=Content-Type content="text/html">
+<LINK href="form.css" rel=stylesheet>
+<SCRIPT language=JavaScript type="text/javascript" >
+function port_help()
+{
+   window.open('porthelp1.htm','MyWindows','status=yes,left=50,top=50,scrollbars=yes,resizable=yes,width=600,height=400');
+}
+
+function port_refresh()
+{
+   document.forms[1].submit();
+}
+
+var str = "";
+function pvidset(cur_port,vid)
+{
+    str += cur_port+','+vid+'#';
+    document.forms[0].port_vid.value = str;
+}
+
+function apply()
+{
+    var key;
+    <%x@PORTS:PORTS(#COLUMNPORTS=100)%>
+    document.forms[0].port_desc.value += <%=PORTS:NUM(x,#left_half)%>+','+document.getElementById('portdesc<%=PORTS:NUM(x,#left_half)%>').value+'#';
+    document.forms[0].port_desc.value += <%=PORTS:NUM(x,#right_half)%>+','+document.getElementById('portdesc<%=PORTS:NUM(x,#right_half)%>').value+'#';
+    
+    if (document.getElementById('porten<%=PORTS:NUM(x,#left_half)%>').checked) {
+        key = 1;
+    } else {
+        key = 0;
+    }
+    document.forms[0].port_en.value += <%=PORTS:NUM(x,#left_half)%>+','+key+'#';
+    
+    if (document.getElementById('porten<%=PORTS:NUM(x,#right_half)%>').checked) {
+        key = 1;
+    } else {
+        key = 0;
+    }
+    document.forms[0].port_en.value += <%=PORTS:NUM(x,#right_half)%>+','+key+'#';
+    <%/x%>	
+    document.forms[0].submit();
+    str = "";
+}
+
+</SCRIPT>
+<title>PORT Status & Configuration</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+</HEAD>
+
+<BODY>
+<TABLE>
+  <TBODY>
+  <TR> 
+    <TD width="70%">
+      <H1>PORT Status & Configuration</H1>
+    <TD width="8%" align=right>
+      <input type=button value=Refresh onclick="port_refresh()">
+    <TD width="7%" align=right>
+      <input type=button value=Help onclick="port_help()">
+    <TD width="15%">&nbsp;
+  <TR>
+    <TD colspan=4>
+<TABLE cellSpacing=0 border=1 width="85%">
+  <TBODY>
+  <TR align=center>
+    <TD width="6%"><B>Port </B>
+    <TD width="6%"><B>Description </B>
+    <TD width="11%"><B>Enable</B>    
+    <TD width="12%"><B>Link<BR>Status </B>
+    <TD width="20%"><B>Speed<BR>Duplex </B>
+    <TD width="11%"><B>Flow<BR>Control </B>
+    <TD width="11%"><B>Auto-<BR>nego </B>
+    <%z@FEATURE:ENABLE(#pvid)%>
+    <TD width="8%"><B>PVID </B>
+    <%/z%>	
+    <?y@PORTS:TWO_COLUMN?>
+    <TD width="6%"><B>Port </B>
+    <TD width="6%"><B>Description </B>
+    <TD width="11%"><B>Enable</B>    
+    <TD width="12%"><B>Link<BR>Status </B>
+    <TD width="20%"><B>Speed<BR>Duplex </B>
+    <TD width="11%"><B>Flow<BR>Control </B>
+    <TD width="11%"><B>Auto-<BR>nego </B>
+    <%z@FEATURE:ENABLE(#pvid)%>
+    <TD width="8%"><B>PVID </B>
+    <%/z%>	
+    <?/y?>
+  <%x@PORTS:PORTS(#COLUMNPORTS=100)%>
+  <TR>
+    <TD align=center><B>[%=PORTS:NUM(x,#left_half)%]</B></TD>
+    <TD align=center><INPUT type=text maxlength="20" id="portdesc<%=PORTS:NUM(x,#left_half)%>" value="[%=PORTS:STATUS(x,#portdesc,#left_half)%]"></TD>
+    <TD align=center><INPUT type=checkbox id="porten<%=PORTS:NUM(x,#left_half)%>" [%=PORTS:STATUS(x,#porten,#left_half)%]></TD>
+    <TD align=center>[%=PORTS:STATUS(x,#link,#left_half)%]</TD>
+    <TD align=center>[%=PORTS:STATUS(x,#speed,#left_half)%]</TD>
+    <TD align=center>[%=PORTS:STATUS(x,#flowctrl,#left_half)%]</TD>
+    <TD align=center>[%=PORTS:STATUS(x,#autonego,#left_half)%]</TD>
+    <%z@FEATURE:ENABLE(#pvid)%>
+    <TD align=center>
+       <SELECT name="pvid<%=PORTS:NUM(x,#left_half)%>"
+       onchange="pvidset(<%=PORTS:NUM(x,#left_half)%>,this.value)"
+       [%=PORTS:STATUS(x,#pvid,#left_half)%]>
+	<%p@pvid:list(x, #left_half)%>
+	<OPTION [%=PVID:SELECTED(p, x, #left_half)%] value="[%=PVID:VIDSHOW(p, x, #left_half)%]"> [%=PVID:VIDSHOW(p, x, #left_half)%]</OPTION>
+	<%/p%>
+	</SELECT>   
+    </TD>
+    <%/z%>	
+    <?y@PORTS:TWO_COLUMN?>
+    <TD align="center"><B>[%=PORTS:NUM(x,#right_half)%]</B></TD>
+    <TD align=center><INPUT type=text maxlength="20" id="portdesc<%=PORTS:NUM(x,#right_half)%>" value="[%=PORTS:STATUS(x,#portdesc,#right_half)%]"></TD>
+    <TD align=center><INPUT type=checkbox id="porten<%=PORTS:NUM(x,#right_half)%>" [%=PORTS:STATUS(x,#porten,#right_half)%]></TD>
+    <TD align=center>[%=PORTS:STATUS(x,#link,#right_half)%]</TD>
+    <TD align=center>[%=PORTS:STATUS(x,#speed,#right_half)%]</TD>
+    <TD align=center>[%=PORTS:STATUS(x,#flowctrl,#right_half)%]</TD>
+    <TD align=center>[%=PORTS:STATUS(x,#autonego,#right_half)%]</TD>
+    <%z@FEATURE:ENABLE(#pvid)%>
+    <TD align=center>
+        <SELECT name=pvid[%=PORTS:NUM(x,#right_half)%]
+        onchange="pvidset(<%=PORTS:NUM(x,#right_half)%>,this.value)"
+        [%=PORTS:STATUS(x,#pvid,#right_half)%]>
+        <%p@pvid:list(x, #right_half)%>
+	 <OPTION [%=PVID:SELECTED(p, x, #right_half)%] value=[%=PVID:VIDSHOW(p, x, #right_half)%]> [%=PVID:VIDSHOW(p, x, #right_half)%]</OPTION>
+	 <%/p%>
+        </SELECT>    
+    </TD>
+    <%/z%>		
+    <?/y?>
+  <%/x%>
+</TR></TBODY></TABLE>
+    <TABLE width = "100%"> <TBODY>
+    <TR>    	
+    <TD width="85%" align=right>
+    <INPUT type=button value=" Apply " onclick="apply()"> </TD>
+    <TD width="15%" align=right> &nbsp;</TD>
+    </TR>      
+    </TBODY></TABLE>
+</TBODY></TABLE>
+
+<FORM action="setport.cgi" method=get>
+<INPUT type=hidden name=port_vid>
+<INPUT type=hidden name=port_desc>
+<INPUT type=hidden name=port_en>
+</FORM>
+
+<FORM action="portconf.htm" method=get>
+</FORM>
+
+
+

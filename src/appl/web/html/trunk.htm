@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<link href="trunk_files/form.css" rel="stylesheet" type="text/css">
+<SCRIPT language=JavaScript type="text/javascript" >
+function trunk_help()
+{
+   window.open('trunkhelp1.htm','MyWindows','status=yes,left=50,top=50,scrollbars=yes,resizable=yes,width=600,height=400');
+}
+function trunk_port_check() {
+	var i;
+	var j; 
+	var cnt;
+	var radios;
+	var ret;
+	var error_min;
+	var error_max;
+	ret = 1;
+    for (j=0; j < [%=TRUNK:INFO(#MAX_GROUP)%]; j++) {
+ 		cnt = 0;
+        for (i = 1; i <= [%=TRUNK:INFO(#MAX_PORT)%]; i++) {
+            if (i < 10) {
+                radios = document.getElementsByName("p0" + i);
+            } else {
+                radios = document.getElementsByName("p" + i);
+            }
+            if (radios[j].checked == true) {
+                cnt = cnt + 1;
+            }
+        }
+        
+        
+        if (cnt == 1) {
+            ret = 0;
+        }
+        if (cnt > 8) {
+            ret = 0;
+        }
+	}
+	return ret;
+}
+function apply()
+{
+	if (trunk_port_check() == 0) {
+		alert("number of ports per active trunk should be great than 2 and less than 8");
+	} else {
+    	document.forms[0].submit();
+	}
+}
+</SCRIPT>
+<title></title></head>
+
+<body onload="initTable()">
+<TABLE cellSpacing="0" border="0">
+<tr vAlign="top">	
+<td width="90%" align="left"><h1>Trunk Setting</h1></td> 
+<td align="right"><input type="button" value="Help" onclick="trunk_help()"></td>
+</tr> 
+</TABLE>
+<form method="get" action="trunk.cgi">
+
+<td align="left"><b>Distribution Criterion:&nbsp;&nbsp;&nbsp;</b>
+                 <SELECT name=criteria>
+        <%x@trunk:crishow(#CRI_SA)%><OPTION value=1>SA ( Source MAC Address ) <%/x%>
+        <%x@trunk:crishow(#CRI_DA)%><OPTION value=2>DA ( Destination MAC Address ) <%/x%>
+        <%x@trunk:crishow(#CRI_SADA)%><OPTION value=3>SA + DA <%/x%>
+        </SELECT> </td>
+<br>
+<br>
+<table>
+<tbody>
+<tr>
+<td>
+<table id="table1" border="1" cellpadding="2" cellspacing="0">
+<tbody><tr><td><b> </b></td>
+<% x@trunk:ports()%>
+<td align="center"><b>[%=trunk:portnum(x)%]</b>
+</td><% /x %>
+</tr>
+<%y@trunk:all_groups()%>
+<tr><td><b>Trunk Group [%=trunk:portnum(y)%] </b></td>
+<% x@trunk:ports()%>
+<td align="center"><input value="[%=trunk:portnum(y)%]" name="p[%=trunk:portnum(x)%]" type="radio" [%=trunk:info(#GROUP_MEMBER_STRING,y,x)%]></td>
+<% /x%>
+</tr><% /y %>
+<tr><td><b>No Trunking</b></td>
+<% x@trunk:ports()%>
+<td align="center"><input value="0" name="p[%=trunk:portnum(x)%]" type="radio" [%=trunk:info(#GROUP_MEMBER_STRING,65535,x)%]></td>
+<% /x%>
+</tr></tbody></table>
+<tr><td align="right"><b>Maximum number of ports per trunk: [%=TRUNK:INFO(#MAX)%] 
+</b></td></tr>
+<tr><td align="right"><b>Minimum number of ports per trunk: 2
+</b></td></tr>
+<tr>
+<td>&nbsp;</td></tr>
+<tr>
+<td align="center"><input value=" Apply " onclick="apply()" type="button"></td></tr></tbody></table></form>
+</body></html>

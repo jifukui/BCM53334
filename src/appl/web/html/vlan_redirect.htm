@@ -1,0 +1,21 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD>
+<TITLE>VLAN Redirect</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+<link href="form.css" rel="stylesheet" type="text/css">
+<SCRIPT language=JavaScript type="text/javascript">
+
+function on_load()
+{
+ var vlan_type = "[%=VLAN:SSI(#type)%]";
+ if (vlan_type == "8021q") {
+    location.href = "vlanlist.htm";
+ } else {
+    location.href = "pvlanview.htm";
+ }
+ return false;
+}
+</SCRIPT>
+</HEAD>
+<BODY onLoad="on_load()">
+</BODY></HTML>

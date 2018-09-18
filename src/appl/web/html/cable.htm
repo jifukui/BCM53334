@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML><HEAD><TITLE>Cable Diagnostic</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+<LINK href="form.css" rel=stylesheet>
+<SCRIPT language=JavaScript type="text/javascript">
+var titleText = ". . . . . . .  Running tests  . . . . . . . ";
+var len = titleText.length;
+var count = len - 1;
+var phase = [%=CABLE:SSI(#PHASE)%];
+
+function displayHelp()
+{			
+    window.open('cablehelp.htm','MyWindows','status=yes,left=50,top=50,scrollbars=yes,resizable=yes,width=600,height=400');
+}
+
+function scrollit()
+{
+ document.getElementById("scroller").innerHTML = "<b>" + titleText.substr(count, len - count) + titleText.substr(0, count) + "<" + "/" + "b>";
+ 
+ if (count == 0) {
+     count = len - 1;
+     window.location.assign("cable.htm");
+ } else {
+     count--;
+ }
+ setTimeout("scrollit()", 200);
+}
+function apply()
+{
+ document.cable2.port.value = document.cable.port.value;	
+ document.cable2.submit();
+}
+
+function on_load() 
+{
+  if ( phase != 0) {
+    
+    document.getElementById("div1").innerHTML = 
+  '<TABLE width="60%" height="40%"><TBODY><TR valign=center><TD align=center>' +
+  '  <div id="scroller"><\/div>' +
+  '  <B>Please wait. It may take minutes to complete. <br><br>You will be directed to the results when it' + "'" + 's done. <\/B>' +
+  '<\/TD><\/TD><\/TBODY><\/TABLE>';
+   scrollit();
+  }
+  document.getElementById("div1").style.visibility="visible"; 
+}
+function display_help()
+{
+  window.open('cable_help.htm','MyWindows','status=yes,left=50,top=50,scrollbars=yes,resizable=yes,width=600,height=400');
+}
+</SCRIPT>
+</HEAD>
+<BODY onload="on_load();" >
+
+<TABLE cellSpacing="0" border="0">
+<TR vAlign="top">
+<TD width="90%"><H1>Cable Diagnostic</H1></TD>
+<TD align="right"><INPUT type="button" value="Help" onclick="javascript:display_help();"></TD>
+</TR>
+</TABLE>
+<div id="div1" style="visibility:hidden">
+<FORM NAME="cable" action="cable.htm" >
+<B>Port to diagnose:&nbsp;&nbsp;</B>
+<SELECT name="port">
+<%x@cable:ports()%>
+<OPTION value=[%=cable:show(x)%] [%=CABLE:SSI(#PORTSEL,x)%]> [%=cable:show(x)%]</OPTION>
+</OPTION>
+<%/x%>
+</SELECT>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<input type=button value="Apply" onclick="apply();">
+</FORM>
+<br>
+
+<%x@CABLE:CD_DONE%>
+<B>Diagnostic for Port <%=CABLE:SSI(#CUR_PORT)%>: </B>&nbsp;&nbsp; <br><br>
+<table CELLSPACING="0" WIDTH="320" BORDER="1">
+<tbody>
+<tr>
+ <td width=100 align=center><B>Status</B>
+ <td align=center><%=CABLE:SSI(#STATUS)%>
+</tbody></table>
+<%/x%>
+
+</div>
+<form name="cable2" method=post action="cable.cgi">
+<input type=hidden name=port>
+</form>
+</BODY></HTML>

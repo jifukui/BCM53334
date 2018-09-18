@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<INCLUDED>   
+    <!--=======================================================-->
+    <COMMAND-KEYWORD name="enable" desc="Enable command" access="privileged">
+        <SELECT>
+            <COMMAND-KEYWORD name="mirror" desc="Enable mirror">
+            </COMMAND-KEYWORD>
+            <COMMAND-KEYWORD name="igmpsnoop" desc="Enable igmpsnoop">
+               <PARAM-KEYWORD name="vlan" desc="VLAN ID for igmpsnoop"/>
+               <PARAM-INTEGER id="VID" min="1" max="4094" desc="Value of VLAN ID for igmpsnoop"/>
+            </COMMAND-KEYWORD>           
+            <COMMAND-KEYWORD name="block_unknown_multicast" desc="Enable block unknown multicast">
+            </COMMAND-KEYWORD>  
+        </SELECT>
+    </COMMAND-KEYWORD>
+    <!--=======================================================-->
+</INCLUDED>    

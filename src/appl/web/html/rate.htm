@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML><HEAD>
+<TITLE></TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+<LINK href="form.css" rel=stylesheet>
+<SCRIPT language=JavaScript type="text/javascript">
+function rate_help()
+{
+   window.open('ratehelp1.htm','MyWindows','status=yes,left=50,top=50,scrollbars=yes,resizable=yes,width=600,height=400');
+}
+</SCRIPT>
+</HEAD>
+<BODY>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD>
+       <H1>Port Rate</H1>
+    <TD align=right>
+      <input type=button value=Help onclick="rate_help()">
+  <TR>
+    <TD colspan=2>
+<TABLE CELLSPACING="0" BORDER="1">
+<TBODY>
+<TR ALIGN="center">
+<TD ALIGN="center" WIDTH="30"><B>Port</B></TD>
+<TD ALIGN="center" WIDTH="60"><B>Ingress<BR>Rate</B></TD>
+<TD ALIGN="center" WIDTH="60"><B>Egress<BR>Rate</B></TD>
+<%y@PORTS:TWO_COLUMN%>
+<TD ALIGN="center" WIDTH="30"><B>Port</B></TD>
+<TD ALIGN="center" WIDTH="60"><B>Ingress<BR>Rate</B></TD>
+<TD ALIGN="center" WIDTH="60"><B>Egress<BR>Rate</B></TD>
+<%/y%>
+</TR>
+  <%x@PORTS:PORTS(#COLUMNPORTS=100)%>
+  <TR>
+    <TD align=center><A href="rate.cgi?port=[%=PORTS:NUM(x,#left_half,#NOALIGN)%]"><B>[%=PORTS:NUM(x,#left_half)%]</B></A>
+    <TD align=center>[%=RATE:INFO(#ingress, x, #left_half)%]
+    <TD align=center>[%=RATE:INFO(#egress, x, #left_half)%]
+    <%y@PORTS:TWO_COLUMN%>
+    <TD align=center><A href="rate.cgi?port=[%=PORTS:NUM(x,#right_half,#NOALIGN)%]"><B>[%=PORTS:NUM(x,#right_half)%]</B></A>
+    <TD align=center>[%=RATE:INFO(#ingress, x, #right_half)%]
+    <TD align=center>[%=RATE:INFO(#egress, x, #right_half)%]
+    <%/y%>
+    <%/x%>
+<TR>
+<TD colspan="2" align="center"><B>Storm Control</B></TD>
+<TD colspan="4" align="center"><A href="storm.htm">[%=storm:status%]</A>
+</TD>
+</TBODY></TABLE>
+</TBODY></TABLE>
+</BODY></HTML>

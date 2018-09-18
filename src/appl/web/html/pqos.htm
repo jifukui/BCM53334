@@ -1,0 +1,189 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML><HEAD>
+<TITLE>Port-Base Qos</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=UTF-8">
+<LINK href="form.css" rel=stylesheet>
+<SCRIPT language=JavaScript type="text/javascript">
+var max_ports = <%=PORTS:PORTCOUNT()%>;
+cur_values = new Array([%=PQOS:INFO(#values)%]);
+single_sch = [%=QOS:INFO(#sch)%];
+threshold_mode = [%=QOS:INFO(#thres)%];
+max_weight = [%=QOS:INFO(#maxweight)%];
+fix_weight = [%=QOS:INFO(#weight)%]
+cur_weights = new Array([%=QOS:INFO(#weights)%]);
+num_queues = [%=QOS:INFO(#QNUM)%];
+function pqos_help()
+{
+   window.open('pqoshelp.htm','MyWindows','status=yes,left=50,top=50,scrollbars=yes,resizable=yes,width=600,height=400');
+}
+
+function set_method()
+{
+  for(i=0; i<num_queues; i++) 
+  {
+    document.pqos["w"+ i].disabled = (fix_weight || num_queues == 1 || document.pqos.sch.value == 0 || document.pqos.sch.value == 1 || document.pqos.sch.value == 2);
+  }
+}
+function update_values()
+{
+ if (num_queues == 1) {
+   for(i=1; i<=max_ports; i++) {
+     document.pqos["p"+ i].checked = true;
+     document.pqos["p"+ i].disabled = true;
+   }
+ } else {
+   <%z@ports:ports()%>
+   document.pqos.p<%=ports:num(z,#ALLPORTS,#NOALIGN)%>[cur_values[<%=ports:num(z,#ALLPORTS,#NOALIGN)%>-1]].checked = true;
+   <%=PORTS:ROWNUM(#NEWROW, z)%>
+   <%/z%>   
+ }
+}
+function init_pqos()
+{
+  for(i=0; i<num_queues; i++) 
+  {
+    document.pqos["w"+ i].value = cur_weights[i];
+    if (fix_weight)
+    {
+      document.pqos["w"+ i].disabled = true;
+    } 
+  }
+    
+  set_method();
+  if (single_sch || num_queues == 1)
+    document.pqos.sch.disabled = true;
+  if (num_queues == 1)
+    document.pqos.btn1.disabled = true;
+  update_values();
+}
+
+var str_cur_values = "";
+
+function set_threshold(q,p,whichbox)
+{
+  cur_values[p-1] = q;
+	
+  if (!threshold_mode)
+  	return;
+  if (cur_values[p-1] != whichbox.value)
+  {
+       p = (q == 0)? p : p-1;
+  	i=0;
+  	for(;;) {
+      if (i >= p) break;
+          cur_values[i] = 0;
+          i++;
+      }
+
+      i = p;
+
+      for(;;) {
+  	  if (i >= max_ports) break;
+  	  cur_values[i] = 1;
+  	  i++;
+      }
+    update_values();
+  }
+}
+
+function apply()
+{
+    var d = document.pqos;
+
+    for(i=0; i < max_ports; i++)
+    {
+        str_cur_values += cur_values[i]+',';
+    }
+    d.str_cur_values.value = str_cur_values;
+
+    d.submit();
+  
+    str_cur_values = ""; 
+}
+
+function warning1()
+{
+ if (confirm('Do you want to change to IEEE 802.1P QoS ?\n\n\n') == true)
+ {
+    document.qosmode.submit();
+ } else {
+    document.qosmode.qtype[1].checked = true;
+ }
+}
+</SCRIPT>
+</HEAD>
+<!-- Top page -->
+<BODY onload="init_pqos()">
+<FORM name="qosmode" method="get" action="swqospage.cgi">
+<TABLE width="450">
+ <TR><TD><INPUT type="radio" name="qtype" value="0" onclick="warning1();">
+ <FONT size=3 color="#FF6600"><b>IEEE 802.1P QoS</B></FONT></TD>
+
+ <TD><INPUT type="radio" name="qtype" value="1" checked>
+ <FONT size=3 color="#FF6600"><b>Port-Based QoS</B></FONT></TD></TR>
+
+</TABLE>
+</FORM>
+
+<FORM name=pqos method=post action="pqos.cgi">
+<INPUT type=hidden name=str_cur_values>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD width=160>
+       <H1>QoS Setting</H1>
+    <TD align=right width=200>
+      <input type=button value=Help onclick="pqos_help()">
+  <TR>
+    <TD colspan=2>
+ <TABLE> <TBODY>      
+ <TR>
+  <TD><B>Scheduling Method:&nbsp;&nbsp;</B></TD>
+  <TD><SELECT name=sch onchange="set_method()">
+      <%x@QOS:MODE_COUNTS%>
+      <OPTION value=[%=PQOS:INFO(#MODE_VAL,x)%] [%=PQOS:INFO(#MODE_SEL,x)%]>[%=PQOS:INFO(#MODE_STRING,x)%]
+      <%/x%>
+      </SELECT>
+  </TD>
+ </TR>
+</TBODY></TABLE>
+</TBODY></TABLE>
+<BR>
+<TABLE cellSpacing=0 border=1>
+  <TBODY>
+
+  <TR>
+    <TD [%=PORTS:ROWNUM(#ROWSPAN)%]>&nbsp;
+    
+    <%x@ports:ports()%>
+    <TD align=center><B>[%=PORTS:NUM(x,#ALLPORTS=0)%]</B>
+    <%=PORTS:ROWNUM(#NEWROW, x)%>
+    <%/x%>
+    <TD align=center><B>Weight</B> 
+  </TR>
+  <%x@TBL:PQOS%>
+  <TR>                   
+    <TD align=left><B>Queue [%=PQOS:INFO(#queue,x)%][%=PQOS:INFO(#order,x)%]</B>
+    <%z@ports:ports()%>
+    <TD align="center">
+    <INPUT type="radio" name=p[%=ports:num(z,#ALLPORTS,#NOALIGN)%] value=[%=PQOS:INFO(#queue,x)%]
+    onclick="set_threshold([%=PQOS:INFO(#queue,x)%],[%=ports:num(z,#ALLPORTS,#NOALIGN)%],this);">
+    </TD>
+    <%=PORTS:ROWNUM(#NEWROW, z)%>
+    <%/z%>
+
+    <TD width=50 align=center>
+    <SELECT name="w[%=PQOS:INFO(#queue,x)%]"><%y@PQOS:WEIGHTS()%><OPTION value="[%=PQOS:INFO(#NUMBER,y)%]">[%=PQOS:INFO(#NUMBER,y)%]</OPTION><%/y%></SELECT>
+    <%/x%>
+  </TR></TBODY>
+</TABLE>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD align=center width=360>&nbsp;
+  <TR>
+    <TD>&nbsp;
+  <TR>
+    <TD align=center width=360><INPUT type=button value=" Apply " name="btn1" onclick="apply()">
+  </TR></TBODY></TABLE></FORM>
+</BODY></HTML>

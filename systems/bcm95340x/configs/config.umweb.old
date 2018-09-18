@@ -1,0 +1,22 @@
+target = umweb
+
+ 
+#
+#  Firmware type  
+#
+
+CFG_TEXT_START ?= 0xF0100040 
+FLASH_IMG = ${CFG_IMG}-${target}.flash
+
+#
+#  System feature
+#
+CFG_XIP = 1
+
+#
+#  WEB feature 
+#
+
+CFG_WEB = 1
+
+

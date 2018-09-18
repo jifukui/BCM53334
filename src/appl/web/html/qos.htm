@@ -1,0 +1,192 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML><HEAD>
+<TITLE>802.1Q Qos</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<LINK href="form.css" rel=stylesheet>
+<SCRIPT language=JavaScript type="text/javascript">
+cur_values = new Array([%=QOS:INFO(#values)%]);
+single_sch = [%=QOS:INFO(#sch)%];
+threshold_mode = [%=QOS:INFO(#thres)%];
+max_weight = [%=QOS:INFO(#maxweight)%];
+fix_weight = [%=QOS:INFO(#weight)%]
+cur_weights = new Array([%=QOS:INFO(#weights)%]);
+num_queues = [%=QOS:INFO(#QNUM)%];
+function qos_help()
+{
+   window.open('qoshelp1.htm','MyWindows','status=yes,left=50,top=50,scrollbars=yes,resizable=yes,width=600,height=400');
+}
+
+function set_method()
+{
+  for(i=0; i<num_queues; i++) 
+  {
+    document.qos["w" + i].disabled = (fix_weight || num_queues == 1 || document.qos.sch.value == 0 || document.qos.sch.value == 1 || document.qos.sch.value == 2);
+  }
+}
+function update_values()
+{
+ if (num_queues == 1) {
+   for(i=0; i<8; i++) {
+     document.qos["p" + i].checked = true;
+     document.qos["p" + i].disabled = true;
+   }
+ } else {
+   document.qos.p0[cur_values[0]].checked = true;
+   document.qos.p1[cur_values[1]].checked = true;
+   document.qos.p2[cur_values[2]].checked = true;
+   document.qos.p3[cur_values[3]].checked = true;
+   document.qos.p4[cur_values[4]].checked = true;
+   document.qos.p5[cur_values[5]].checked = true;
+   document.qos.p6[cur_values[6]].checked = true;
+   document.qos.p7[cur_values[7]].checked = true;
+ }
+}
+function init_qos()
+{
+    inputs = document.getElementsByTagName('input');
+    for(i=2; i<inputs.length; i++){
+        inp=inputs[i];
+        if(inp.type=='radio'){
+            inp.disabled=true;
+        }
+    }
+
+    for(i=0; i<num_queues; i++) 
+    {
+        document.qos["w" + i].value = cur_weights[i];
+        if (fix_weight)
+        {
+            document.qos["w" + i].disabled = true;	  
+        } 
+    }
+	
+    set_method();
+    if (single_sch || num_queues == 1)
+        document.qos.sch.disabled = true;
+    if (num_queues == 1)
+        document.qos.btn1.disabled = true;
+    update_values();
+}
+
+function set_threshold(q,p,whichbox)
+{
+  if (!threshold_mode)
+  	return;
+  if (cur_values[p] != whichbox.value)
+  {
+  	p = (q == 0)? p+1 : p;
+  	i=0;
+  	for(;;) {
+      if (i >= p) break;
+  	  cur_values[i] = 0;
+      i++;
+  	}
+  	i = p;
+  	for(;;) {
+  	  if (i >= 8) break;
+  	  cur_values[i] = 1;
+  	  i++;
+    }
+    update_values();
+  }
+}
+
+function warning2()
+{
+   if (confirm('Do you want to change to Port-Based QoS ?\n\n\n') == true)
+   {
+     document.qosmode.submit();
+   } else {
+     document.qosmode.qtype[0].checked = true;
+   }
+}
+
+function apply()
+{
+ document.qos.btn1.disabled = true;
+ document.qos.submit();
+}
+
+</SCRIPT>
+</HEAD>
+<!-- Top page -->
+
+<BODY onload="init_qos()">
+<FORM name="qosmode" method="get" action="swqospage.cgi">
+<TABLE width="450">
+ <TR><TD><INPUT type="radio" name="qtype" value="0" checked>
+ <FONT size=3 color="#FF6600"><B>IEEE 802.1P QoS</B></FONT></TD>
+
+ <td><input type="radio" name="qtype" value="1" onclick="warning2();">
+ <FONT size=3 color="#FF6600"><B>Port-Based QoS</B></FONT></TD></TR>
+
+</table>
+</form>
+
+<FORM name=qos method=post action="qos.cgi">
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD width=160>
+       <H1>QoS Setting</H1>
+    <TD align=right width=200>
+      <input type=button value=Help onclick="qos_help()">
+  <TR>
+    <TD colspan=2>
+ <TABLE> <TBODY>      
+ <tr>
+  <td><B>Scheduling Method:&nbsp;&nbsp;</B></td>
+  <td><SELECT name=sch onchange="set_method()">
+      <%x@QOS:MODE_COUNTS%>
+      <OPTION value=[%=QOS:INFO(#MODE_VAL,x)%] [%=QOS:INFO(#MODE_SEL,x)%]>[%=QOS:INFO(#MODE_STRING,x)%]
+      <%/x%>
+      </SELECT>
+  </td>
+ </tr>
+</TBODY></TABLE>
+</TBODY></TABLE>
+<BR>
+<TABLE cellSpacing=0 border=1>
+  <TBODY>
+  <TR>
+    <TD><B>Priority</B>
+    <TD align=center><B>(Low)<BR>0</B> 
+    <TD align=center><B>&nbsp;<BR>1</B> 
+    <TD align=center><B>&nbsp;<BR>2</B> 
+    <TD align=center><B>&nbsp;<BR>3</B> 
+    <TD align=center><B>&nbsp;<BR>4</B> 
+    <TD align=center><B>&nbsp;<BR>5</B> 
+    <TD align=center><B>&nbsp;<BR>6</B> 
+    <TD align=center><B>(High)<BR>7</B> 
+    <TD align=center><B>Weight</B>
+  <%x@TBL:QOS%>
+  <TR>                   
+    <TD align=left><B>Queue [%=QOS:INFO(#queue,x)%][%=QOS:INFO(#order,x)%]</B>
+    <TD align=center><INPUT type=radio name=p0 onclick="set_threshold([%=QOS:INFO(#queue,x)%],0,this);" value=[%=QOS:INFO(#queue,x)%]>
+    <TD align=center><INPUT type=radio name=p1 onclick="set_threshold([%=QOS:INFO(#queue,x)%],1,this);" value=[%=QOS:INFO(#queue,x)%]>
+    <TD align=center><INPUT type=radio name=p2 onclick="set_threshold([%=QOS:INFO(#queue,x)%],2,this);" value=[%=QOS:INFO(#queue,x)%]>
+    <TD align=center><INPUT type=radio name=p3 onclick="set_threshold([%=QOS:INFO(#queue,x)%],3,this);" value=[%=QOS:INFO(#queue,x)%]>
+    <TD align=center><INPUT type=radio name=p4 onclick="set_threshold([%=QOS:INFO(#queue,x)%],4,this);" value=[%=QOS:INFO(#queue,x)%]>
+    <TD align=center><INPUT type=radio name=p5 onclick="set_threshold([%=QOS:INFO(#queue,x)%],5,this);" value=[%=QOS:INFO(#queue,x)%]>
+    <TD align=center><INPUT type=radio name=p6 onclick="set_threshold([%=QOS:INFO(#queue,x)%],6,this);" value=[%=QOS:INFO(#queue,x)%]>
+    <TD align=center><INPUT type=radio name=p7 onclick="set_threshold([%=QOS:INFO(#queue,x)%],7,this);" value=[%=QOS:INFO(#queue,x)%]>
+    <TD width=50 align=center>
+    <SELECT name="w[%=QOS:INFO(#queue,x)%]">
+      <%y@QOS:WEIGHTS()%>
+      <OPTION value="[%=QOS:INFO(#NUMBER,y)%]">[%=QOS:INFO(#NUMBER,y)%]</OPTION>
+      <%/y%>
+    </SELECT>
+    <%/x%>
+</TR></TBODY></TABLE>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD align=center width=360>&nbsp; <!-- <B>Weights: 1-[%=QOS:INFO(#maxweight)%]</B> -->
+  <TR>
+    <TD>&nbsp;
+  <TR>
+    <TD align=center width=360>
+    <!--<INPUT type=button value=" Apply " name="btn1" onclick="apply()"> -->
+  </TR></TBODY></TABLE></FORM>
+</BODY></HTML>
+

@@ -1,0 +1,23 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML><HEAD><TITLE>Loop Detection Help</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+<LINK href="form.css" rel=stylesheet type="text/css">
+
+</HEAD>
+
+<BODY>
+<FONT size=4><B>Loop Detection</B></FONT>
+<BR><BR>
+
+Loop traffic detector system
+<BR><BR>
+
+<B>Enable Loop Detection</B> enables or disables loop detection. 
+When enabling Loop Detection, a special packet content with ethertype 0x8874, called loopdetect packet, is generated and sent to the front ports every two seconds. 
+If this special packet is received by switch itself, a loop is detected. Otherwise, there is no loop in the topology. 
+When a loop is detected by a port, both link and active LEDs on that port are switched to blinking mode until loop is removed. <BR><BR>
+<B>Apply</B> setting is changed and preserved after clicking the Apply button. <BR><BR>
+
+</BODY></HTML>
+
+

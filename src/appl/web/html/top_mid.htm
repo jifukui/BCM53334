@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+    <head>
+        <style type="text/css">
+         <!--
+         body {
+         margin-left: 0px;
+         margin-top: 0px;
+         }
+         -->
+         </style>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+        <meta Http-equiv="refresh" content="10">
+        <link href="top.css" rel="stylesheet" type="text/css">
+        <title></title>
+
+        <script language="JavaScript" type="text/JavaScript">
+        
+        	var port_speed = new Array();
+			var port_an = new Array();
+        	var max_port_index = 0;
+        	
+          <%x@PORTS:PORTS(#COLUMNPORTS=100)%>
+          port_speed[[%=PORTS:NUM(x,#left_half)%]-1]= "[%=PORTS:STATUS(x,#speed,#left_half)%]";
+		  port_an[[%=PORTS:NUM(x,#left_half)%]-1]= "[%=PORTS:STATUS(x,#autonego,#left_half)%]";
+          max_port_index++;
+          <%/x%>
+          
+          <%x@PORTS:PORTS(#COLUMNPORTS=100)%>
+          port_speed[[%=PORTS:NUM(x,#right_half)%]-1]= "[%=PORTS:STATUS(x,#speed,#right_half)%]";
+		  port_an[[%=PORTS:NUM(x,#right_half)%]-1]= "[%=PORTS:STATUS(x,#autonego,#right_half)%]";
+          max_port_index++;
+          <%/x%>
+        
+        	max_port_index = max_port_index - 1;
+        
+        function on_load()
+        {
+            var led4_img = parent.top_right.document.led4;
+        	var led3_img = parent.top_right.document.led3;
+        	var led2_img = parent.top_right.document.led2;
+        	var led1_img = parent.top_right.document.led1;
+        	var led0_img = parent.top_right.document.led0;
+            if (parent.top_right.document.readyState != "complete") {
+                return false;
+            }			
+        	for (idx = 0; idx <= max_port_index; idx++) {
+        		if(port_speed[idx].match("--")) {
+                    led0_img[idx].src = "top_lgray.gif"; 
+        			led1_img[idx].src = "top_lgray.gif";			
+        			led2_img[idx].src = "top_lgray.gif";			
+        			led3_img[idx].src = "top_lgray.gif";
+        			led4_img[idx].src = "top_lgray.gif";
+        		} else  {
+			     	if (port_an[idx].match("On")) {
+        		     	led0_img[idx].src = "top_lgreen.gif";
+     				} else  {
+             			led0_img[idx].src = "top_lgray.gif";
+			    	}				       
+        			if(port_speed[idx].match("100Mbps") || port_speed[idx].match("10Mbps") || port_speed[idx].match("1Gbps")) {
+        				led1_img[idx].src = "top_lgreen.gif";				
+        				led2_img[idx].src = "top_lgray.gif";
+        				led3_img[idx].src = "top_lgray.gif";
+        				led4_img[idx].src = "top_lgray.gif";
+        			} else {
+        				if (port_speed[idx].match("2.5Gbps") || port_speed[idx].match("5Gbps") || port_speed[idx].match("10Gbps")) {
+        				  led1_img[idx].src = "top_lgray.gif";
+        				  led2_img[idx].src = "top_lgreen.gif";
+        				  led3_img[idx].src = "top_lgray.gif";
+           				  led4_img[idx].src = "top_lgray.gif";
+        			    } else {
+        			      if (port_speed[idx].match("25Gbps") || port_speed[idx].match("40Gbps") || port_speed[idx].match("50Gbps")) {
+              		  	      led1_img[idx].src = "top_lgray.gif";
+       			     	      led2_img[idx].src = "top_lgray.gif";   
+       				          led3_img[idx].src = "top_lgreen.gif";       		  
+       				          led4_img[idx].src = "top_lgray.gif";       		  
+        			      } else {
+              		  	      led1_img[idx].src = "top_lgray.gif";
+       			     	      led2_img[idx].src = "top_lgray.gif";   
+       				          led3_img[idx].src = "top_lgray.gif";       		  
+       				          led4_img[idx].src = "top_lgreen.gif";       		  
+						  }	
+        			    }
+
+        		     }
+        	       }
+        	}
+        
+            document.getElementById("light_table").style.visibility='visible'; 
+        	return false;
+        }
+      
+        </script>
+    </head>
+
+
+    <body onLoad="on_load();">
+      
+    </body>
+</html>

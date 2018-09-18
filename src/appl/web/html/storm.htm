@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD>
+<META http-equiv=Content-Type content="text/html"><LINK 
+href="form.css" rel=stylesheet>
+<SCRIPT language=JavaScript>
+function setstorm_help()
+{
+   window.open('stormhelp.htm','MyWindows','status=yes,left=50,top=50,scrollbars=yes,resizable=yes,width=600,height=400');
+}
+
+function set_type()
+{
+  document.storm.storm_rate.disabled = (document.storm.storm_type.value == 1);
+}
+function init_storm()
+{
+	storm_caps = new Array([%=STORM:INFO(#caps)%]);
+	storm_vals = new Array([%=STORM:INFO(#vals)%]);
+	cur_storm_val = [%=STORM:INFO(#rate2)%];
+
+    var tselects = document.forms[0].getElementsByTagName('SELECT');
+    i = 0; 
+    for(;;)
+    {
+        if (i >= tselects.length)
+            break;
+            
+        var tselect = tselects[i];
+        if (tselect.name == "storm_rate")
+        {
+            j = 0;
+            for(;;)
+            {
+                if (j >= storm_vals.length)
+                    break;
+                    
+                var opt;                    
+                if (navigator.userAgent.toLowerCase().indexOf("msie") != -1 && 
+                    navigator.userAgent.toLowerCase().indexOf("opera") == -1 )
+                    opt = document.createElement("<OPTION value=" + storm_vals[j] + ">");
+                else
+                    opt = document.createElement("OPTION");
+                opt.setAttribute("VALUE", storm_vals[j]);
+                if (storm_vals[j] == cur_storm_val)
+                    opt.selected = true;
+                opt.appendChild(document.createTextNode(storm_caps[j]));
+                tselect.appendChild(opt);
+
+                j++;
+            }
+            
+            break;
+        }
+        
+        i++;
+    }
+	
+	document.storm.storm_type.value = "[%=STORM:INFO(#type2)%]";
+	set_type();
+}
+</SCRIPT>
+</HEAD>
+<BODY onload=init_storm()>
+<FORM name=storm action="storm.cgi" method=post>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD>
+       <H1>Storm Control</H1>
+    <TD align=right>
+      <input type=button value=Help onclick=setstorm_help()>
+  <TR>
+    <TD colspan=2>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD width=140><B>Storm Control Type </B>
+	<TD><SELECT name=storm_type onchange=set_type()> 
+    		<OPTION value=1>Disabled
+    		<OPTION value=5>Broadcast, multicast and unknown unicast
+    	</SELECT>
+  <TR>
+    <TD width=140><B>Storm Control Rate </B>
+	<TD><SELECT name=storm_rate> 
+    	</SELECT>
+    <TR>
+      <TD><br>
+    <TR>
+      <TD><INPUT type=submit value=Apply>
+    </TR>
+</TBODY></TABLE>
+</TBODY></TABLE><BR>
+</FORM>
+</BODY></HTML>

@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+        <link href="left.css" rel="stylesheet" type="text/css">
+        <title></title>
+    </head>
+
+<body bgcolor="black">
+
+<table>
+<tbody>
+<tr>
+<td><font color="red" size="3"><b>Smart Switch</b></font></td></tr>
+<tr>
+<td><img src="fold.gif" alt="fold.gif"> <a href="system.htm" target="main">System</a></td></tr>
+<tr>
+<td><img src="fold.gif" alt="fold.gif"> <a href="portconf.htm" target="main">Port</a></td></tr>
+<%x@FEATURE:ENABLE(#stat)%>
+<tr>
+<td><img src="fold.gif" alt="fold.gif"> <a href="statist.htm" target="main">Statistics</a></td></tr>
+<%/x%>
+<tr>
+<td><img src="fold.gif" alt="fold.gif"> <a href="vlan_redirect.htm" target="main">VLAN</a> </td></tr>
+<%x@FEATURE:ENABLE(#trunk)%>
+<tr>
+<td><img src="fold.gif" alt="fold.gif"> <a href="trunk.htm" target="main">Trunking</a> </td></tr>
+<%/x%>
+<%x@FEATURE:ENABLE(#mirror)%>
+<tr>
+<td><img src="fold.gif" alt="fold.gif"> <a href="mirror.htm" target="main">Mirror</a></td></tr>
+<%/x%>
+<%x@FEATURE:ENABLE(#qos)%>
+<tr>
+<td><img src="fold.gif" alt="fold.gif"> <a href="qos_redirect.htm" target="main">QoS</a></td></tr>
+<%/x%>
+<%x@FEATURE:ENABLE(#rate)%>
+<tr>
+<td><img src="fold.gif" alt="fold.gif"> <a href="rate.htm" target="main">Rate</a> </td></tr>
+<%/x%>
+<%x@FEATURE:ENABLE(#loopdet)%>
+<tr>
+<td><img src="fold.gif" alt="fold.gif"> <a href="loopdet.htm" target="main">Loopback 
+Detect</a></td></tr>
+<%/x%>
+<%x@FEATURE:ENABLE(#mcast)%>
+<tr>
+<td><img src="fold.gif" alt="fold.gif"> <a href="multicast.htm" target="main">Multicast</a> </td></tr>
+<%/x%>
+<%x@FEATURE:ENABLE(#cable)%>
+<tr>
+<td><img src="fold.gif" alt="fold.gif"> <a href="cable.htm" target="main">Cable Diagnostic</a>
+   </td></tr>
+<%/x%>
+<tr>
+<td><img src="fold.gif" alt="fold.gif"> <a href="accesscontrol.htm" target="main">Access Control</a></td></tr>
+<tr>
+<td><img src="fold.gif" alt="fold.gif"> <a href="password.htm" target="main">Password</a></td></tr>
+<tr>
+<td><img src="fold.gif" alt="fold.gif"> <a href="logout.htm" target="_parent">Logout</a></td></tr></tbody></table>
+
+</body></html>

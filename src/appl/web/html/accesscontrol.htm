@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML><HEAD>
+<TITLE>ACCESS CONTROL</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+<LINK href="form.css" rel=stylesheet>
+<SCRIPT language=JavaScript type="text/javascript">
+function display_help()
+{
+  window.open('accesscontrol_help.htm','MyWindows','status=yes,left=50,top=50,scrollbars=yes,resizable=yes,width=600,height=400');
+}
+
+function apply()
+{
+  var d = document.accesscontrol;
+  
+  if(true == document.accesscontrol.accenable.checked) {
+      d.limit.value =  "1";
+      d.acc_ctrl.value += document.getElementById('access0').value+'#'+document.getElementById('mask0').value+'$';
+      d.acc_ctrl.value += document.getElementById('access1').value+'#'+document.getElementById('mask1').value+'$';
+      d.acc_ctrl.value += document.getElementById('access2').value+'#'+document.getElementById('mask2').value+'$';
+      d.acc_ctrl.value += document.getElementById('access3').value+'#'+document.getElementById('mask3').value+'$';
+      d.acc_ctrl.value += document.getElementById('access4').value+'#'+document.getElementById('mask4').value+'$';
+      
+      d.ipset.value = d.acc_ctrl.value;
+  }
+  else{
+      d.limit.value =  "0";  	
+  }
+    document.forms[0].submit();
+    
+    str = "";
+}
+
+function adminpvapply()
+{
+    document.forms[1].submit();
+    
+    str = "";
+}
+
+function setDisable()
+{
+    document.getElementById('access0').value = "";
+    document.getElementById('mask0').value = "";
+    document.getElementById('access1').value = "";
+    document.getElementById('mask1').value = "";
+    document.getElementById('access2').value = "";
+    document.getElementById('mask2').value = "";
+    document.getElementById('access3').value = "";
+    document.getElementById('mask3').value = "";
+    document.getElementById('access4').value = "";
+    document.getElementById('mask4').value = "";
+}
+
+function ldia_check() {
+	if (document.getElementById("accenable").checked) {
+  	  document.getElementById("access0").disabled=false;
+      document.getElementById("mask0").disabled=false;
+  	  document.getElementById("access1").disabled=false;
+      document.getElementById("mask1").disabled=false;
+  	  document.getElementById("access2").disabled=false;
+      document.getElementById("mask2").disabled=false;
+  	  document.getElementById("access3").disabled=false;
+      document.getElementById("mask3").disabled=false;
+  	  document.getElementById("access4").disabled=false;
+      document.getElementById("mask4").disabled=false;
+  } else {
+  	  document.getElementById("access0").disabled=true;
+      document.getElementById("mask0").disabled=true;
+  	  document.getElementById("access1").disabled=true;
+      document.getElementById("mask1").disabled=true;
+  	  document.getElementById("access2").disabled=true;
+      document.getElementById("mask2").disabled=true;
+  	  document.getElementById("access3").disabled=true;
+      document.getElementById("mask3").disabled=true;
+  	  document.getElementById("access4").disabled=true;
+      document.getElementById("mask4").disabled=true;
+  }	
+}
+
+</SCRIPT>
+</HEAD>
+<BODY onload="ldia_check()">
+
+<TABLE cellSpacing="0" border="0">
+<TR vAlign="top">
+<TD width="90%"><H1>Access Control</H1></TD>
+<TD align="right"><INPUT type="button" value="Help" onclick="javascript:display_help();"></TD>
+</TR>
+</TABLE>
+
+<FORM name=accesscontrol method=get action="accesscontrol.cgi">
+<TABLE>
+ <TR> 
+ <INPUT id = "accenable" name="accenable"  onclick="ldia_check()" type="checkbox" [%=ACCESS:STATUS(0,#enable)%]>
+ <FONT size=3 color="#FF6600"><B>Limit Designated IP Access</B></FONT>
+</TR>
+
+ <INPUT type=hidden name=acc_ctrl>
+  <TBODY>
+  <TR>
+    <TD><b>Access IP 1: </b></TD>
+    <TD align=center><INPUT type=text size=20 id="access0" value="[%=ACCESS:STATUS(0,#ip)%]"></TD>
+    <TD><b>Mask 1: </b></TD>
+    <TD align=center><INPUT type=text size=20 id="mask0" value="[%=ACCESS:STATUS(0,#mask)%]"></TD>
+  </TR>  
+  <TR>
+    <TD><b>Access IP 2: </b></TD>
+    <TD align=center><INPUT type=text size=20 id="access1" value="[%=ACCESS:STATUS(1,#ip)%]"></TD>
+    <TD><b>Mask 2: </b></TD>
+    <TD align=center><INPUT type=text id="mask1" value="[%=ACCESS:STATUS(1,#mask)%]"></TD>
+  </TR>  
+  <TR>
+    <TD><b>Access IP 3: </b></TD>
+    <TD align=center><INPUT type=text size=20 id="access2" value="[%=ACCESS:STATUS(2,#ip)%]"></TD>
+    <TD><b>Mask 3: </b></TD>
+    <TD align=center><INPUT type=text id="mask2" value="[%=ACCESS:STATUS(2,#mask)%]"></TD>
+  </TR>  
+  <TR>
+    <TD><b>Access IP 4: </b></TD>
+    <TD align=center><INPUT type=text size=20 id="access3" value="[%=ACCESS:STATUS(3,#ip)%]"></TD>
+    <TD><b>Mask 4: </b></TD>
+    <TD align=center><INPUT type=text id="mask3" value="[%=ACCESS:STATUS(3,#mask)%]"></TD>
+  </TR>  
+  <TR>
+    <TD><b>Access IP 5: </b></TD>
+    <TD align=center><INPUT type=text size=20 id="access4" value="[%=ACCESS:STATUS(4,#ip)%]"></TD>
+    <TD><b>Mask 5: </b></TD>
+    <TD align=center><INPUT type=text id="mask4" value="[%=ACCESS:STATUS(4,#mask)%]"></TD>
+  </TR>    
+  <TR>
+    <TD colspan=2 align=center><INPUT type=submit value=Apply onclick="apply()"></TD>
+  </TR>
+  <TR>
+    <TD colspan=2 align=center>&nbsp;</TD>
+  </TR>
+  </TBODY>
+</TABLE>
+<input type=hidden name=limit>
+<input type=hidden name=ipset>
+</FORM>
+
+<FORM name=adminpriv method=post action="adminpriv.cgi">
+<TABLE> 
+  <TR>
+ <TD>
+ <INPUT name="adminp" type="checkbox" [%=AdminP:STATUS(#enable)%]>
+ </TD>
+ <TD width="90%"> 
+ <FONT size=3 color="#FF6600"><B>Limit Single User Access</B></FONT>
+  </TD>
+  </TR>
+  <TR>
+    <TD colspan=2 align=center><INPUT type=submit value="Apply" onclick="adminpvapply()">
+  </TR>
+</TABLE>  
+</FORM>
+
+</BODY></HTML>

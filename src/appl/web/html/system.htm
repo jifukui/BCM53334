@@ -1,0 +1,161 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+        <link href="form.css" rel="stylesheet" type="text/css">
+        <script language="JavaScript" type="text/javascript">
+
+        function device_action(op)
+        {
+        <%x@FEATURE:ENABLE(#persistence)%>
+          if (op == 0) {
+            val = window.confirm("Do you want to restore previous saved device configuration?");
+            if (val){
+                window.location.assign("restore.htm");
+            }
+          }        
+          if (op == 1) {
+            document.system_act.action_op.value = "save";
+            document.system_act.submit();
+          }
+          if (op == 2) {
+            val = window.confirm("Do you want to apply factory default setting and reboot device?");
+            if (val){
+              document.reset_fm.reset_op.value = "factory"; 
+              document.reset_fm.submit(); 
+            }
+          }
+          if (op == 3) {
+            val = window.confirm("Do you want to download current device configuration?");
+            if (val){
+                document.location="um.cfg";
+            }
+          }		  
+        <%/x%>
+          if (op == 4){
+            val = window.confirm("Do you want to reboot device?");
+            if (val){
+              document.reset_fm.reset_op.value = "reboot"; 
+              document.reset_fm.submit(); 
+            }
+          }
+          if (op == 5){
+            val = window.confirm("Do you want to upload vendor configuration?");
+            if (val){
+                window.location.assign("upload_vc.htm");
+            }
+          }
+        }
+        <%x@FEATURE:ENABLE(#bonjour)%>
+        function set_bonjour()
+        {
+          val = window.confirm("Do you want to change enable/disable status of Bonjour?");
+            if (val){
+              document.bonjour_fm.en_change.value = true;
+              document.bonjour_fm.submit();
+            }
+        }
+        <%/x%>
+        function fwupgrade_confirm()
+        {
+          val = window.confirm("Do you want to reboot device for Firmware upgrade?");
+          if (val){
+            document.reset_fm.reset_op.value = "fwupgrade"; 
+            document.reset_fm.submit(); 
+          }
+        }
+        function display_help()
+        {
+          window.open('system_help.htm','MyWindows','status=yes,left=50,top=50,scrollbars=yes,resizable=yes,width=600,height=400');
+        }
+        </script>
+        <title></title>
+    </head>
+<body>
+<table><tbody>
+<tr><td>
+<TABLE cellSpacing="0" border="0" width="100%">
+<TR vAlign="top">
+<TD align=left><H1>System</H1></TD>
+<TD align="right">
+<INPUT type="button" value="Refresh" onclick="javascript:document.location='system.htm'">
+<INPUT type="button" value="Help" onclick="javascript:display_help();"></TD>
+</TR>
+</TABLE>
+<tr><td>
+<table cellSpacing="0" cellpadding=0 border="0" width="100%"><tbody>
+<tr><td>
+<table border="1" cellspacing="0">
+<tbody>
+<tr>
+<td><b>&nbsp;Device Name&nbsp;</b></td>
+<td>&nbsp;&nbsp;<a href="system_name.htm"><%=system:info(#DEVNAME)%></a></td></tr>
+<tr>
+<td><b>&nbsp;Firmware Version&nbsp;</b></td>
+<td>&nbsp;&nbsp;<a href="javascript:fwupgrade_confirm();"><%=system:version(#UMPLUS)%></a>&nbsp;&nbsp;&nbsp;</td></tr>
+<tr>
+<td><b>&nbsp;Build Date&nbsp;</b></td>
+<td>&nbsp;&nbsp;<%=system:version(#DATE)%>
+</td></tr>
+<tr>
+<td><b>&nbsp;MAC Address&nbsp;</b></td>
+<td>&nbsp;&nbsp;<%=system:net(#MACADDR)%></td></tr>
+<%x@FEATURE:ENABLE(#IPV6)%>
+<tr>
+<td><b>&nbsp;IPv6 Address&nbsp;</b></td>
+<td>&nbsp;&nbsp;<%=system:net(#IPV6ADDR)%></td></tr>
+<%/x%>
+<tr>
+<td><b>&nbsp;IPv4 Address&nbsp;</b></td>
+<td>&nbsp;&nbsp;<%=system:net(#IPADDR)%></td></tr>
+
+<tr>
+<td><b>&nbsp;Subnet Mask&nbsp;</b></td>
+<td>&nbsp;&nbsp;<%=system:net(#NETMASK)%></td></tr>
+<tr>
+<td><b>&nbsp;Gateway&nbsp;</b></td>
+<td>&nbsp;&nbsp;<%=system:net(#GATEWAY)%></td></tr>
+<tr>
+<td><b>&nbsp;Link Ports&nbsp;</b></td>
+<td>&nbsp;&nbsp;<a href="portconf.htm"><%=system:info(#LINKPORTS)%></a></td></tr>
+<%x@FEATURE:ENABLE(#bonjour)%>
+<tr>
+<td><b>&nbsp;Bonjour&nbsp;</b></td>
+<td>&nbsp;&nbsp;<a href="javascript:set_bonjour();"><%=system:net(#BONJOUR)%></a></td></tr>
+<%/x%>
+</tbody></table>
+</td></tr>
+<tr><td><font size=-2>&nbsp;</font></td></tr>
+
+<tr><td>
+<form name="reset_fm" action="reset.cgi" method="post">
+<input name="reset_op" type="hidden">
+</form>
+<form name="bonjour_fm" action="bonjour.cgi" method="post">
+<input name="en_change" type="hidden">
+</form>
+<form name="system_act" action="sys_action.cgi" method="post" >
+<input name="action_op" type="hidden">
+</form>
+</td></tr>
+
+</tbody></table>
+<TABLE cellSpacing="0" border="0" width="100%">
+<TR>
+<TD align="left">
+<%x@FEATURE:ENABLE(#persistence)%>
+<INPUT name="save_bt" type="button" value=" Save " onclick="javascript:device_action(3);">
+<INPUT name="restore" type="button" value="Restore" onclick="javascript:device_action(0);">
+<INPUT name="factory_bt" type="button" value="Factory" onclick="javascript:device_action(2);">
+<%/x%>
+<%x@FEATURE:ENABLE(#uploadvc)%>
+<INPUT name="upload_vc" type="button" value="Upload Vendor Config" onclick="javascript:device_action(5);">
+<%/x%>
+&nbsp;</TD>
+<TD align="right">
+<INPUT name="reboot_bt" type="button" value="Reboot" onclick="javascript:device_action(4);">
+</TD></TR>
+</TABLE>
+</tbody></table>
+
+</body></html>

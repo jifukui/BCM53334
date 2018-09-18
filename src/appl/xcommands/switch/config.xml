@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<INCLUDED> 
+	  <COMMAND-KEYWORD name="config" cmdtype="config" desc="Config command" access="privileged">
+	      <SELECT>
+            <COMMAND-KEYWORD name="port" desc="configure port name">
+            	<PARAM-INTEGER id="PORT_ID" min="1" max="24" name="port_id" desc="Specify port number. The index starts from 1" />
+            	<PARAM-LINE id="PORT_NAME" minlen="0" maxlen="20" name="port_name" desc="Port Name" />
+            </COMMAND-KEYWORD>
+            <COMMAND-KEYWORD name="igmpsnoop" desc="Configure igmpsnoop">
+				<OPTIONAL>
+				    <COMMAND-KEYWORD name="version" desc="Config IGMPSNOOP version">
+				        <PARAM-INTEGER id="VER_ID" min="1" max="3" desc="Configure IGMPSNOOP version"/>                        
+				    </COMMAND-KEYWORD>
+				    <COMMAND-KEYWORD name="query_interval" desc="Config IGMPSNOOP query_interval">
+				        <PARAM-INTEGER id="SECS" min="1" max="125" desc="Configure IGMPSNOOP version"/>
+				    </COMMAND-KEYWORD>
+				    <COMMAND-KEYWORD name="robustness_variable" desc="Config IGMPSNOOP robustness variable">
+				        <PARAM-INTEGER id="TIMES" min="2" max="10" desc="Configure IGMPSNOOP robustness variable"/>
+				    </COMMAND-KEYWORD>
+				</OPTIONAL>
+            </COMMAND-KEYWORD>
+            <COMMAND-KEYWORD name="mirror" desc="configure mirror">
+                <SELECT>
+           	        <COMMAND-KEYWORD name="destination_port" desc="configure mirror destination port">
+          	            <PARAM-INTEGER id="PORT_ID" min="1" max="24" name="port_id" desc="Specify port number. The index starts from 1" />
+                    </COMMAND-KEYWORD>
+           	        <COMMAND-KEYWORD name="source_port_list" desc="configure source port list">
+          	            <PARAM-CUSTOM id="PORT_LIST" type="port_list" desc="Port list. For example, 5-8,10,12-13"/>
+                    </COMMAND-KEYWORD>
+                </SELECT>
+            </COMMAND-KEYWORD>
+        </SELECT>
+	  </COMMAND-KEYWORD>
+</INCLUDED>

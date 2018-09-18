@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<INCLUDED> 
+<COMMAND-KEYWORD name="show" cmdtype="show" desc="Show command">  
+  <SELECT>
+  	<COMMAND-KEYWORD name="counter" desc="Show counter">
+    </COMMAND-KEYWORD>
+    <COMMAND-KEYWORD name="system" desc="Show system information">
+    </COMMAND-KEYWORD>
+  </SELECT>
+</COMMAND-KEYWORD>    
+</INCLUDED>

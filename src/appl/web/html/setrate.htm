@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML><HEAD>
+<TITLE>Set Rate </TITLE>
+<META http-equiv=Content-Type content="text/html; charset=UTF-8">
+<LINK href="form.css" rel=stylesheet>
+<SCRIPT language=JavaScript type="text/javascript">
+function setrate_help()
+{
+   window.open('ratehelp2.htm','MyWindows','status=yes,left=50,top=50,scrollbars=yes,resizable=yes,width=600,height=400');
+}
+
+function init_rate()
+{
+	rate_caps = new Array([%=RATE:INFO(#caps)%]);
+	rate_vals = new Array([%=RATE:INFO(#vals)%]);
+	rate_ingress = [%=RATE:STRING(#ingress)%];
+	rate_egress = [%=RATE:STRING(#egress)%];
+	
+    var tselects = document.forms[0].getElementsByTagName('SELECT');
+    i = 0; 
+    for(;;)
+    {
+        if (i >= tselects.length)
+            break;
+            
+        var tselect = tselects[i];
+        if (tselect.name == "ingress" || tselect.name == "egress")
+        {
+            j = 0;
+            for(;;)
+            {
+                if (j >= rate_vals.length)
+                    break;
+                    
+                var opt;                    
+                if (navigator.userAgent.toLowerCase().indexOf("msie") != -1 && 
+                    navigator.userAgent.toLowerCase().indexOf("opera") == -1 )
+                    opt = document.createElement("<OPTION value=" + rate_vals[j] + ">");
+                else
+                    opt = document.createElement("OPTION");
+                opt.setAttribute("VALUE", rate_vals[j]);
+                if ((tselect.name == "ingress" && rate_vals[j] == rate_ingress) ||
+                    (tselect.name == "egress" && rate_vals[j] == rate_egress) )
+                    opt.selected = true;
+                opt.appendChild(document.createTextNode(rate_caps[j]));
+                tselect.appendChild(opt);
+
+                j++;
+            }
+        }
+        
+        i++;
+    }
+
+}
+
+
+</SCRIPT>
+</HEAD>
+<BODY onload="init_rate()">
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD width=300>  
+        <H1>Rate Limit For Port [%=RATE:STRING(#port)%]</H1>
+    <TD>  
+        <input type=button value=Help onclick="setrate_help()">
+</TBODY></TABLE>        
+<FORM name=setrate action="setrate.cgi" method=post>
+<INPUT type=hidden name=port value=[%=RATE:STRING(#port1)%]>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD width=80><B>Ingress Rate </B>
+	<TD width=150><SELECT name=ingress> 
+       <OPTION>
+    	</SELECT>
+  [%=RATE:INFO(#sps)%]
+  <TR>
+    <TD width=80><B>Egress Rate </B>
+	<TD width=150><SELECT name=egress> 
+       <OPTION>
+    	</SELECT>
+    [%=RATE:INFO(#spe)%]
+    <TR>
+      <TD><br>
+    <TR>
+      <TD><INPUT type=submit value=Apply>
+    </TR></TBODY></TABLE><BR>
+</FORM>
+</BODY></HTML>

@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+        <link HREF="form.css" REL="stylesheet" TYPE="text/css">
+        <title></title>
+        <script language="JavaScript" type="text/JavaScript">
+        var secs = 10;
+        function tick()
+        {
+         secs--;
+         if (secs == 0) {
+           document.sform.btn.value = "Continue";
+           document.sform.btn.disabled = false;
+         } else {
+           document.sform.btn.value = "Wait.....(" + secs +")";
+           window.setTimeout("tick()", 1000);
+         }
+        }
+        function init()
+        {
+         document.sform.btn.value = "Wait.....(" + secs +")";
+         document.sform.btn.disabled = true;
+         window.setTimeout("tick()", 1000);
+        }
+        function MM_goToURL()
+        {
+          var i, args=MM_goToURL.arguments; document.MM_returnValue = false;
+          for (i=0; i<(args.length-1); i+=2) eval(args[i]+".location='"+args[i+1]+"'");
+        }
+        </script>
+    </head>
+<body>
+<h1>Restarting Device.....</h1>
+
+<FORM name="sform" action="">
+<TABLE width=500 >
+  <TBODY>
+  <TR valign=middle>
+    <TD align=center>
+    <B>Please wait until the button becomes "Continue", <br>then press the button to continue.</B><br><br>
+    <INPUT type=button value=Wait name=btn onClick="MM_goToURL('top','/');return document.MM_returnValue">
+</TR></TBODY></TABLE><BR>
+</FORM>
+<script language="JavaScript" type="text/JavaScript">
+<!--
+init();
+-->
+</script>
+</body>
+</html>

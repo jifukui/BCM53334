@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html">
+<META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE">
+<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+<link HREF="form.css" REL="stylesheet" TYPE="text/css">
+<title></title>
+<script language="JavaScript" type="text/JavaScript">
+<!--
+var secs = <%=upgrade:info(#RSTTIME)%>;
+function tick()
+{
+ secs--;
+ if (secs == 0) {
+   document.sform.btn.value = "Continue";
+   document.sform.btn.disabled = false;
+ } else {
+   document.sform.btn.value = "Wait.....(" + secs +")";
+   window.setTimeout("tick()", 1000);
+ }
+}
+function init()
+{
+ document.sform.btn.value = "Wait.....(" + secs +")";
+ document.sform.btn.disabled = true;
+ window.setTimeout("tick()", 1000);
+}
+function MM_goToURL() {
+  var i, args=MM_goToURL.arguments; document.MM_returnValue = false;
+  for (i=0; i<(args.length-1); i+=2) eval(args[i]+".location='"+args[i+1]+"'");
+}
+//-->
+</script>
+</head>
+<body onload="init();">
+<h1>Firmware Update <%=upgrade:info(#RSTSUBJECT)%> </h1>
+<P>
+<B><%=upgrade:info(#RSTSTR)%></B>
+<form name="sform">
+    <INPUT type=button onClick="MM_goToURL('top','/');return document.MM_returnValue" name=btn value="Continue">
+</form>
+
+</body>
+</html>

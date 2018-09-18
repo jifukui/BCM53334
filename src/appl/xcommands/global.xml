@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<CONTEXT id="global" cmdtype="config">
+  <SELECT>
+    <!--====== enable command =========================================-->
+    <INCLUDE comment="enable" file="switch/enable.xml" />
+
+    <!--====== disable command =================================================-->
+    <INCLUDE comment="disable" file="switch/disable.xml" />
+
+    <!--====== config command =================================================-->
+    <INCLUDE comment="config" file="switch/config.xml" />
+
+    <!--====== config command =================================================-->
+    <INCLUDE comment="show" file="switch/show.xml" />
+        
+    <!--=======================================================-->
+    <COMMAND-KEYWORD name="exit" cmdtype="show" desc="Exit current shell"/>
+    <!--=======================================================-->
+  </SELECT>
+</CONTEXT>

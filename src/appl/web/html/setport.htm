@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv=Content-Type content="text/html"><LINK href="form.css" rel=stylesheet>
+<SCRIPT language=JavaScript>
+function setport_help()
+{
+   window.open('porthelp2.htm','MyWindows','status=yes,left=50,top=50,scrollbars=yes,resizable=yes,width=600,height=400');
+}
+
+function set_autonego()
+{
+  if (document.portset.autonego.value == 0)
+  {
+  	document.portset.speed.disabled = false;
+  }
+  else
+  {
+  	document.portset.speed.disabled = true;
+  }
+}
+function init_port()
+{
+    var ptype = [%=PORTS:CONFIG(#type)%];
+    
+	var i = 0;
+    var opts = document.portset.speed.options;
+    
+    if (ptype == 0 || ptype == 1) {
+        opts[i++] = new Option("10Mbps Half", "1");
+        opts[i++] = new Option("10Mbps Full", "2");
+        opts[i++] = new Option("100Mbps Half", "3");
+        opts[i++] = new Option("100Mbps Full", "4");
+    }
+    if ((ptype == 1 || ptype == 2)) {
+    	 /* When auto-negotiation disabled, 
+    	     the master or slave of phy need to be set for 1Gbps. 
+    	     Hence, don't allow user to force 1Gbps. */
+        /* opts[i++] = new Option("1Gbps Full", "5"); */
+    }
+	
+	document.portset.admin.value = [%=PORTS:CONFIG(#admin)%];
+	document.portset.autonego.value = [%=PORTS:CONFIG(#autonego)%];
+	document.portset.speed.value = [%=PORTS:CONFIG(#speed)%];
+<%x@FEATURE:ENABLE(#pvid)%>
+	document.portset.pvid.value = [%=PORTS:CONFIG(#pvid)%];
+<%/x%>	
+	set_autonego();
+}
+</SCRIPT>
+</HEAD>
+<BODY onload="init_port();">
+<FORM name=portset method=post action="portset.cgi"><INPUT type=hidden value=[%=PORTS:CONFIG(#num)%] name=port>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD>
+       <H1>PORT Configuration</H1>
+    <TD align=right>
+      <input type=button value=Help onclick=setport_help()>
+  <TR>
+    <TD colspan=2>
+<TABLE cellSpacing=0 border=1>
+  <TBODY>
+  <TR align=center>
+    <TD><B>Port </B>
+    <TD><B>Admin </B>
+    <TD><B>Auto<BR>Negotiate </B>
+    <TD><B>Speed<BR>Duplex </B>
+<%x@FEATURE:ENABLE(#pvid)%>
+    <TD><B>PVID</B>
+<%/x%>	
+  <TR align=center>
+    <TD><B>[%=PORTS:CONFIG(#num)%]</B>
+    <TD><SELECT name=admin> 
+    		<OPTION value=0>Disable
+    		<OPTION value=1>Enable
+    	</SELECT>
+    <TD><SELECT name=autonego onchange=set_autonego()>
+    		<OPTION value=0>Disable 
+    		<OPTION value=1>Enable 
+    	</SELECT> 
+    <TD><SELECT name=speed>
+        </SELECT> 
+<%x@FEATURE:ENABLE(#pvid)%>
+    <TD><INPUT type=text size=3 maxlength=5 name=pvid>
+<%/x%>	
+  </TR></TBODY></TABLE><BR>
+<TABLE width=440>
+  <TBODY>
+  <TR>
+    <TD align=center>
+    <INPUT type=submit value=" Apply " onClick="alert('Sample Web Page! Only PVID will be applied into device!');">
+  </TBODY>
+</TABLE>
+</FORM>
+</BODY>
+</HTML>

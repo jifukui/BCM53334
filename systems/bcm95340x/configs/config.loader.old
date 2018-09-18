@@ -1,0 +1,21 @@
+target = loader
+
+ 
+#
+#  Firmware type  
+#
+
+CFG_TEXT_START ?= 0xF0000000 
+
+#
+#  System feature
+#
+CFG_XIP = 1
+
+#
+#  WEB feature 
+#
+
+CFG_WEB = 1
+
+

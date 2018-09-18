@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD>
+<META http-equiv=Content-Type content="text/html"><LINK href="form.css" rel=stylesheet>
+<SCRIPT language=JavaScript type="text/javascript">
+function display_help()
+{
+  window.open('statist_help.htm','MyWindows','status=yes,left=50,top=50,scrollbars=yes,resizable=yes,width=600,height=400');
+}
+</SCRIPT>
+<title>Statistics</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+</HEAD>
+
+
+<BODY>
+
+<TABLE cellSpacing="0" border="0" width="50%">
+<TR vAlign="top">
+<TD align=left width="20%"><H1>Statistics</H1></TD>
+<TD width="30%">&nbsp;</TD>
+<TD align=right width="30%">
+ <FORM action="clear_counter.cgi" method=get><INPUT type=hidden name=port value=all><INPUT type=submit value="Clear Counters"></FORM></TD>
+<TD align=right width="10%">
+  <FORM action="/statist.htm" method=post><INPUT type=submit value=Refresh></FORM></TD>
+<TD align="right" width="10%"><INPUT type="button" value="Help" onclick="javascript:display_help();"></TD>
+</TR>
+</TABLE>
+
+
+<TABLE cellSpacing=0 width="50%" border=1>
+  <TBODY>
+  <TR align=center>
+    <TD width="10%" align=center><B>Port</B></TD>
+    <TD width="20%" align=center><B>Tx </B></TD>
+    <TD width="20%" align=center><B>Rx </B></TD>
+    <%y@PORTS:TWO_COLUMN%>
+    <TD width="10%" align=center><B>Port</B></TD>
+    <TD width="20%" align=center><B>Tx </B></TD>
+    <TD width="20%" align=center><B>Rx </B></TD>
+    <%/y%>
+  <%x@PORTS:PORTS(#COLUMNPORTS=100)%>
+  <TR>
+    <TD align=center><B>[%=PORTS:NUM(x,#left_half)%] </B>
+    <TD align=center>[%=STAT:SSI(#TX1,x)%]
+    <TD align=center>[%=STAT:SSI(#RX1,x)%]
+    <%y@PORTS:TWO_COLUMN%>
+    <TD align=center><B>[%=PORTS:NUM(x,#right_half)%] </B>
+    <TD align=center>[%=STAT:SSI(#TX2,x)%]
+    <TD align=center>[%=STAT:SSI(#RX2,x)%]
+    <%/y%>
+  <%/x%>
+  </TR></TBODY></TABLE>
+<TABLE width="50%">
+  <TBODY>
+  <TR>
+    <TD align=right><B>Unit: bytes 
+</B></TR></TBODY></TABLE></BODY></HTML>

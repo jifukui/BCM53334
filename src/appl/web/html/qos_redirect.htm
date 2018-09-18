@@ -1,0 +1,23 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD>
+<META http-equiv=Content-Type content="text/html">
+<link href="form.css" rel="stylesheet" type="text/css">
+</HEAD>
+
+<SCRIPT language=JavaScript>
+
+function on_load()
+{
+    var qos_type = "[%=QOS:INFO(#type)%]";
+    if (qos_type == "8021p") {
+        location.href = "qos.htm";
+    } else {
+        location.href = "pqos.htm";
+    }
+    return false;
+}
+</SCRIPT>
+
+<BODY onLoad="on_load()">
+</BODY></HTML>
+

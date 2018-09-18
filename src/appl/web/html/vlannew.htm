@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML><HEAD>
+<TITLE>VLANNEW</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+<LINK href="form.css" rel=stylesheet>
+<SCRIPT language=JavaScript type="text/javascript">
+max_ports= <%=PORTS:PORTCOUNT()%>;
+port = new Array(<%=VLAN:SSI(#STATES)%>);
+image = new Array('b.gif', 'u.gif', 't.gif');
+
+function vlan_port_check() {
+	var i;
+	var cnt;
+	
+	cnt = 0;
+	for (i = 0; i < max_ports ; i++) {
+        if (port[i] != 0) {
+            cnt = cnt + 1;
+        }
+    }
+    return cnt;
+}
+
+function change_pic(index)
+{
+  index -= 1;
+  port[index] = port[index] + 1;
+  if (port[index] > 2)  port[index] = 0;
+  document.forms[0].imx[index].src = image[port[index]];
+}
+ports_v = 0;
+function change_pics()
+{
+ ports_v++;
+ if (ports_v > 2) ports_v = 0;
+ document.forms[0].imx2.src = image[ports_v];
+ for(i=0; i<max_ports; i++)
+ {
+   port[i] = ports_v;
+   document.forms[0].imx[i].src = image[ports_v];
+ }
+}
+
+function validateVid(vid) {
+   var reg1 = /[^\d]+/;
+   
+   if (reg1.test(vid)) {
+      return true;
+   } else {
+      return false;
+   }
+}
+
+function apply()
+{
+	var d = document.forms[0];
+	var str = "";
+	
+	if (vlan_port_check() == 0) {
+		alert("at least one port in a vlan");
+	} else {
+    	if (validateVid(d.newid.value) == true) {
+    		alert('Invalid VLAN id ' + d.newid.value);
+    		return;
+    	}
+    	
+    	for(i=0; i<max_ports; i++)
+    	  str += port[i];
+    	d.values.value = str;
+    	d.submit();
+    }
+}
+
+function display_help()
+{
+  window.open('vlannew_help.htm','MyWindows','status=yes,left=50,top=50,scrollbars=yes,resizable=yes,width=600,height=400');
+}
+</SCRIPT>
+</HEAD>
+<BODY>
+
+<TABLE cellSpacing="0" border="0">
+<TR vAlign="top">
+<TD width="90%"><H1>IEEE 802.1Q VLAN</H1></TD>
+<TD align="right"><INPUT type="button" value="Help" onclick="javascript:display_help();"></TD>
+</TR>
+</TABLE>
+
+
+<FORM method=post action="newvlan.cgi"> 
+<TABLE><TBODY><TR align=left>
+  <TD><B>New VLAN ID (1-[%=VLAN:SSI(#MAXID)%]): </B> </TD>
+  <TD><INPUT type=text name=newid size=6 maxlength=4> </TD>
+</TR></TBODY></TABLE>
+
+  
+<BR>
+
+<TABLE cellSpacing=0 cellPadding=0>
+  <TBODY align=center>
+   <TR align=center>
+    <TD>
+    <TABLE cellSpacing=0 cellPadding=0><TBODY align=center>
+      <TR>
+        <%x@PORTS:ROWS(#TWOROWS)%>
+          <TD width=50 align=center valign=bottom [%=PORTS:ROWNUM(#ROWSPAN)%]><B>All</B>
+          <%y@PORTS:PORTS(#COLUMNPORTS=100)%>
+          <TD align=center><B>[%=PORTS:NUM(y,#left_half)%]</B>
+          <%/y%>
+          
+          <TR align=center>
+           <%y@PORTS:PORTS(#COLUMNPORTS=100)%>
+           <TD align=center>
+             <IMG onclick="change_pic([%=PORTS:NUM(y,#left_half,#noalign)%])" src="b.gif" name=imx alt=" ">
+           <%/y%>
+          
+          <TR> 
+           <TD align=center valign=top [%=PORTS:ROWNUM(#ROWSPAN)%]>
+             <IMG onclick="change_pics()" src="u.gif" name=imx2 alt="U">  
+           <%y@PORTS:PORTS(#COLUMNPORTS=100)%> 
+           <TD align=center><B>[%=PORTS:NUM(y,#right_half,#noalign)%]</B>
+           <%/y%>
+          
+          <TR align=center>
+           <%y@PORTS:PORTS(#COLUMNPORTS=100)%>
+           <TD align=center>
+             <IMG onclick="change_pic([%=PORTS:NUM(y,#right_half,#noalign)%])" src="b.gif" name=imx alt="U">
+           <%/y%> 
+        <%/x%>
+          
+        <%x@PORTS:ROWS(#ONEROW)%>
+          <TD width=50 align=center><B>All</B>
+          <%y@ports:ports()%>
+          <TD align=center><B>[%=ports:num(y,#ALLPORTS=0)%]</B>
+          <%/y%>
+        
+          <TR align=center>
+           <TD align=center><IMG onclick="change_pics()" src="u.gif" name=imx2 alt="U">
+           <%y@PORTS:PORTS(#ALLPORTS=0)%>
+           <TD align=center>
+             <IMG onclick="change_pic([%=PORTS:NUM(y,#allports,#noalign)%])" src="b.gif" name=imx alt=" ">
+           <%/y%>
+          </TR> 
+        <%/x%>
+      </TBODY></TABLE>
+  
+  <TR align=center>
+    <TD><B>Click the icon under each port to change member state.</B>
+  <TR align=center>
+    <TD><B>To change state of all ports, click the icon under "All".</B>
+  <TR align=center>
+    <TD><BR><BR>
+      <IMG src="b.gif" alt=" ">&nbsp;Not member &nbsp; &nbsp;
+      <IMG src="t.gif" alt="T">&nbsp;Tag egress packets &nbsp; &nbsp;
+      <IMG src="u.gif" alt="U">&nbsp;Untag egress packets 
+  </TR>
+  <TR align=center>
+    <TD><BR><BR><INPUT type=button value=Create onclick="apply()">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <INPUT type=button value=Cancel onclick="history.go(-1)"><INPUT type=hidden name=values>
+  </TR>
+  </TBODY></TABLE>
+
+  </FORM>
+  
+</BODY></HTML>
+

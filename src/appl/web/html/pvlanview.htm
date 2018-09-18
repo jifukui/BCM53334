@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>PORT BASE VLAN VIEW</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+<LINK href="form.css" rel=stylesheet>
+<!-- Javascript here -->
+<SCRIPT LANGUAGE="JAVASCRIPT" type="text/javascript">
+function addLink(vlan)
+{
+ var dispaly_value;
+ 
+ if (vlan < 10) {
+     dispaly_value = "0"+vlan;
+ } else {
+     dispaly_value = vlan;
+ }
+
+ document.write("<A href=\"showaddpvlan.cgi?vid="+vlan+"\"><B>"+dispaly_value);
+}
+
+function displayHelp()
+{			
+    window.open('pvlanhelp.htm','MyWindows','status=yes,left=50,top=50,scrollbars=yes,resizable=yes,width=600,height=400');
+}
+
+function warning1()
+{
+ if (confirm('Do you want to change to IEEE 802.1Q VLAN ?\n\n\nWarning : Changing to IEEE 802.1Q VLAN will erase Port-Based VLAN setting.\n\n\n') == true)
+ {
+    document.vmode.submit();
+ } else {
+    document.vmode.vtype[1].checked = true;
+ }
+}
+</SCRIPT>
+</HEAD>
+<BODY>
+
+<form name="vmode" method="get" action="switchpage.cgi">
+<table width="450">
+ <TR><TD><input type="radio" name="vtype" value="0" onclick="warning1();">
+ <FONT size=3 color="#FF6600"><B>IEEE 802.1Q VLAN</B></FONT></td>
+ <td><input type="radio" name="vtype" value="1" checked>
+ <FONT size=3 color="#FF6600"><B>Port-Based VLAN</B></FONT></td></tr>
+</table>
+</form>
+
+<!-- Buttons -->
+<table width=700>
+  <TR>
+  <TD><INPUT TYPE="BUTTON" VALUE="Add VLAN" onClick="window.location.href='showaddpvlan.cgi'"></TD>
+  <TD width=50><INPUT TYPE="BUTTON" VALUE="Help" onclick="displayHelp();"></TD>
+</table>
+
+<!-- Display current set of PVLANs -->
+<TABLE>
+  <TR>
+  <TD><B>&nbsp;Maximum number of Port-Based VLAN : </B></TD>
+  <TD><B>&nbsp;&nbsp;<%=VLAN:SSI(#MAXID)%></B></TD>
+</TABLE>
+<TABLE cellspacing=0 border=1 width=700>
+<TR align=center>
+ <TD width=70><B>VLAN ID</B></TD>
+ <TD><B>Member</B></TD>
+ <TD width=80><B>Delete</B></TD>
+</TR>
+<!-- Display the VLANs -->
+<%x@VLAN:VID_COUNTS%>
+<TR>
+  <TD ALIGN="CENTER">
+  <SCRIPT LANGUAGE="JAVASCRIPT" type="text/javascript">addLink("[%=PVLAN:INFO(#VID, x)%]");</SCRIPT></TD>
+  <TD>[%=PVLAN:INFO(#member, x)%]</TD>
+  <TD ALIGN="CENTER"><A href="delpvlan.cgi?pvid=<%=PVLAN:INFO(#VID, x)%>">DELETE</A></TD>
+</TR>
+<%/x%>  
+</TABLE>
+<TABLE>
+<TR>
+  <TD><B>&nbsp;Click on VLAN ID to change the VLAN member.</B></TD>
+</TR>
+</TABLE>
+
+
+</BODY>
+</HTML>

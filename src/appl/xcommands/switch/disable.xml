@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<INCLUDED>
+    <!--=======================================================-->
+	<COMMAND-KEYWORD name="disable" desc="Disable command" access="privileged">
+		<SELECT>
+			<COMMAND-KEYWORD name="mirror" desc="Disable IGMPSNOOP of multicast" />
+			<COMMAND-KEYWORD name="igmpsnoop" desc="Disable IGMPSNOOP of multicast" />
+			<COMMAND-KEYWORD name="block_unknown_multicast" desc="Disable block unknown multicast" />
+		</SELECT>
+	</COMMAND-KEYWORD>
+    <!--=======================================================-->
+</INCLUDED>

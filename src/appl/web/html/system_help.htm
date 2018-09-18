@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE></TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+<LINK href="form.css" rel=stylesheet type="text/css">
+
+</HEAD>
+<BODY>
+
+<font size=4><B>Getting started with System Information</B></font>
+
+<BR><BR>
+
+<B>Device name</B> shows the switch device name. Click the hyperlink of the device name to change device name.<BR><BR>
+
+<B>Firmware Version</B> displays the revision ID of the system. Click revision ID hyperlink to start firmware upgrade process. 
+The device will be rebooted and the upgrade process will start in few seconds. <BR><BR>
+<B>Build Date</B> indicates the build date of this firmware.<BR><BR>
+<B>MAC Address</B> indicates the MAC address of the out-of band Ethernet interface.<BR><BR>
+<%x@FEATURE:ENABLE(#IPV6)%>
+<B>IPv6 Address</B> indicates all the IPv6 addresses of the system.<BR><BR>
+<%/x%>
+<B>IPv4 Address</B> indicates the IPv4 address of the system.<BR><BR>
+<B>Subnet Mask</B> indicates the subnet mask of the IP address.<BR><BR>
+<B>Gateway</B> indicates the IP address of the gateway for the remote manager.<BR><BR>
+<B>Link Ports</B> indicates the current linked up ports<BR><BR>
+<%x@FEATURE:ENABLE(#bonjour)%>
+<B>Bonjour</B> shows Bonjour status. Click the hyperlink of status to turn on/off the Bonjour service. <BR><BR>
+<%/x%>
+<BR><BR>
+<B>Refresh</B> retrieves all system information again.<BR><BR>
+<B>Factory</B> resets the configurations of all pages to default value.<BR><BR>
+<B>Save</B> downloads device configurations into a file.<BR><BR>
+<B>Restore</B> restores previous saved configuration into the device.<BR><BR>
+<B>Reboot</B> reset device.
+</BODY></HTML>

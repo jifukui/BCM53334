@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html">
+<META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE">
+<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+<link HREF="form.css" REL="stylesheet" TYPE="text/css">
+<title></title>
+<script language="JavaScript" type="text/JavaScript">
+var phase = 0;
+function start_upgrade()
+{
+  if (document.upg.firmware.value == ''){
+    window.alert("Please put the firmware image!");
+    return;
+  }
+
+  if (phase == 0) {
+    document.getElementById("div0").innerHTML = 
+      "<BR><BR><BR><B><font size=3 color=red>UPGRADE MUST NOT BE INTERRUPTED!</font></B>";
+    phase = 1;
+  }
+  document.gui.btn.disabled = true;
+  document.no_fupg.btn.disabled = true;
+  document.upg.submit();
+  document.upg.firmware.disabled = true;
+}
+function fupg_abort()
+{
+  document.gui.btn.disabled = true;
+  document.no_fupg.btn.disabled = true;
+  document.upg.firmware.disabled = true;
+  val = window.confirm("Do you want to abort firmware upgrade and reboot to normal status?");
+  if (val){
+    document.no_fupg.submit();
+  } else {
+    document.gui.btn.disabled = false;
+    document.no_fupg.btn.disabled = false;
+    document.upg.firmware.disabled = false;
+  }
+}
+</script>
+</head>
+<body>
+<CENTER>
+<h1>Firmware Upgrade </h1>
+<BR>
+<FORM name="upg" method="post" action="fupgrade.cgi" encType="multipart/form-data">
+<B>File to upgrade:&nbsp;&nbsp;</B><INPUT type=file name=firmware size=45>
+</FORM>
+<CENTER>
+<TABLE><TBODY><TR>
+<TD><FORM name=gui> <INPUT type=button onclick="javascript:start_upgrade();" value="Upgrade" name=btn> </FORM>
+<TD><FORM name=no_fupg method="post" action="fupg_abort.cgi"> 
+  <INPUT type=button onclick="javascript:fupg_abort();" value=" Abort " name=btn> 
+</FORM>
+<TR></TBODY></TABLE>
+</CENTER>
+<BR>
+<div id=div0>
+</div>
+</CENTER>
+</body>
+</html>

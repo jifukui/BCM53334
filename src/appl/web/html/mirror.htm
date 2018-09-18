@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+<title>Mirror</title>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8"> 	
+
+<link href="mirror_files/form.css" rel="stylesheet" type="text/css">
+<script language="JavaScript" type="text/javascript">
+var max_ports = <%=PORTS:PORTCOUNT()%>;
+cur_values = new Array([%=MIRROR:SSI(#values)%]);
+
+function init()
+{
+    inputs = document.getElementsByTagName('input');
+
+    for (i=5; i < inputs.length; i++) {
+        inp=inputs[i];
+
+        if (inp.type == 'checkbox') {
+            inp.disabled=!document.mirror.mr_en.checked;
+        }
+    }
+
+    for (i = 0; i < inputs.length; i++) {
+        inp=inputs[i];
+
+        if (inp.type == 'radio') {
+            inp.disabled=!document.mirror.mr_en.checked;
+        }
+    }
+}
+
+function setmultmirport(port)
+{
+    var lport = 0;
+    lport = port -1;
+    
+    if (cur_values[lport] == 0) {
+        cur_values[lport] = 1; 
+    }else if (cur_values[lport] == 1) {
+        cur_values[lport] = 0; 
+    }
+}
+
+var multi_mirport_map = 0;
+function apply()
+{
+    var max_ports = <%=PORTS:PORTCOUNT()%>;
+    var d = document.mirror2;
+    var port_name;
+    var ports;
+    var j;
+
+    multi_mirport_map = 0;
+    for (j=1; j<=max_ports; j++) {
+        port_name = "p" + j.toString();
+        ports = document.getElementsByName(port_name);   	  
+        if (ports[0].checked) {
+            multi_mirport_map |= (1 << (j-1));
+        }    
+        if (document.mirror.mtp[j-1].checked == true) {
+            d.mtp.value = document.mirror.mtp[j-1].value;
+        }  
+    }
+
+    d.xpbm.value = multi_mirport_map;
+  
+    if(true == document.mirror.mr_en.checked)  
+        d.mode.value =  "1";
+    else{
+        d.mode.value =  "0";
+    }
+
+    d.submit();
+  
+    str_cur_values = "";
+
+}
+
+function display_help()
+{
+  window.open('mirror_help.htm','MyWindows','status=yes,left=50,top=50,scrollbars=yes,resizable=yes,width=600,height=400');
+}
+</script></head>
+
+<body onload="init()">
+
+<form name=mirror2 method=get action="mirror.cgi">
+<input type=hidden name=xpbm>
+<input type=hidden name=mtp>
+<input type=hidden name=mode>
+</form>
+
+<form name="mirror" action="mirror.htm">
+
+<table cellSpacing="0" border="0">
+<tr vAlign="top">
+<td width="92%"><h1>Mirror Setting</h1></td>
+<td align="right"><input type="button" value="Help" onclick="javascript:display_help();"></td>
+</tr>
+</table>
+
+<input name="mr_en" onclick="init()" type="checkbox" [%=MIRROR:SSI(#MODES)%]>
+<b>Enable Mirror</b><br>
+<br>
+
+ 
+<table>
+<tbody>
+<tr>
+<td>
+<table border="1" cellpadding="2" cellspacing="0">
+<tbody>
+<tr>
+    <td [%=PORTS:ROWNUM(#ROWSPAN)%]>&nbsp;
+    
+    <%x@ports:ports()%>
+    <td align=center><B>[%=PORTS:NUM(x,#ALLPORTS=0)%]</B>
+    <%=PORTS:ROWNUM(#NEWROW, x)%>
+    <%/x%>
+ <tr>
+   
+<td align="center" [%=PORTS:ROWNUM(#ROWSPAN)%]><b>Mirror</b></td>
+
+    <%x@ports:ports()%>
+    <td align="center">
+    <input type="checkbox" name=p[%=ports:num(x,#ALLPORTS,#NOALIGN)%] [%=MIRROR:SSI(#XPBM_EN,x)%]
+    onchange="setmultmirport([%=ports:num(x,#ALLPORTS,#NOALIGN)%])">
+    </td>
+    <%=PORTS:ROWNUM(#NEWROW, x)%>
+    <%/x%>
+</tr>
+
+<tr>
+
+<td align="center" [%=PORTS:ROWNUM(#ROWSPAN)%]><b>Mirror To</b> </td>
+    <%x@ports:ports()%>
+    <td align="center">
+        <INPUT type=radio name=mtp value="[%=ports:num(x,#ALLPORTS,#NOALIGN)%]" [%=MIRROR:SSI(#MTP_EN,x)%]>
+    </td>
+<%=PORTS:ROWNUM(#NEWROW, x)%>
+<%/x%>
+</tr></tbody></table></td></tr>
+
+<tr>
+<td>&nbsp;</td></tr>
+<tr><td align="center"><input value=" Apply " type=button onclick="apply()"></td></tr>
+</tbody></table></form>
+</body></html>
+
